@@ -1,0 +1,17 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "use vue-press to build a knowledge base.",
+  "main": "index.js",
+  "repository": "https://github.com/kaypler/notes.git",
+  "author": "kaypler <xwd0823@163.com>",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  }
+}
