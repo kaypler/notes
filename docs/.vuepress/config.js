@@ -6,18 +6,30 @@ module.exports = {
     lineNumbers: true
   },
   themeConfig: {
+    repo: 'kaypler/notes',
+    nav: [{
+        text: '面试',
+        link: '/interview/',
+      }, {
+        text: '工具库',
+        link: '/tool/'
+      }, {
+        text: '算法',
+        link: '/algorithm/'
+    }],
+    sidebarDepth: 3,
     sidebar: {
       '/interview/': [{
-        title: '面试',
+        title: '手写系列',
         children: [
-          ''
+          'handwrite/promise'
         ]
       }],
       '/tool/': [{
-        title: '工具函数',
+        title: '文件操作',
         children: [
-          '',
-          'wx2px'
+          'file/axios',
+          'file/wx2px'
         ]
       }],
       '/algorithm/': [{
