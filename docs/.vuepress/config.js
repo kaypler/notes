@@ -37,6 +37,7 @@ module.exports = {
         children: [
           '',
           'bisect',
+          'longest-common-string.md',
           'slide-window',
           'sort',
         ]

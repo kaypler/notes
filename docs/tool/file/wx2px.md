@@ -8,7 +8,7 @@ const readline = require('readline');
 
 const reg = /(\d+(\.\d)?)wx/i;
 const entryPath = path.resolve(__dirname, './src');
-const includeFiles = ['asset', 'component', 'component-butler', 'component-community', 'demo', 'pages'];
+const includeFiles = ['component', 'pages'];
 const FILE_TYPES = ['.vue', '.css'];
 
 function walk() {
