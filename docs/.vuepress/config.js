@@ -21,25 +21,41 @@ module.exports = {
     sidebar: {
       '/interview/': [{
         title: '手写系列',
+        collapsable: false,
         children: [
           'handwrite/promise'
         ]
       }],
       '/tool/': [{
         title: '文件操作',
+        collapsable: false,
         children: [
           'file/axios',
           'file/wx2px'
         ]
       }],
       '/algorithm/': [{
-        title: '算法',
+        title: '排序和查找',
+        collapsable: false,
         children: [
-          '',
-          'bisect',
-          'longest-common-string.md',
-          'slide-window',
-          'sort',
+          'sort-and-search/sort',
+          'sort-and-search/bisect',
+        ]
+      }, {
+        title: '图相关',
+        collapsable: false,
+        children: [
+          'graph/base',
+          'graph/depth-first-search',
+          'graph/topological',
+          'graph/kosaraju',
+        ]
+      }, {
+        title: 'Leecode',
+        collapsable: false,
+        children: [
+          'leecode/longest-common-string',
+          'leecode/slide-window',
         ]
       }]
     }
