@@ -28,7 +28,7 @@ module.exports = {
         text: '算法',
         link: '/algorithm/'
     }],
-    sidebarDepth: 3,
+    sidebarDepth: 1, // 提取到h2的标题
     sidebar: {
       '/interview/': [{
         title: '手写系列',
@@ -38,6 +38,16 @@ module.exports = {
         ]
       }],
       '/tool/': [{
+        title: '基础',
+        collapsable: false,
+        children: []
+      }, {
+        title: '图片相关',
+        collapsable: false,
+        children: [
+          'picture/lazy-load'
+        ]
+      }, {
         title: '文件操作',
         collapsable: false,
         children: [
@@ -66,6 +76,7 @@ module.exports = {
         collapsable: false,
         children: [
           'leecode/longest-common-string',
+          'leecode/matrix',
           'leecode/slide-window',
         ]
       }]
