@@ -1,6 +1,39 @@
 # 矩阵
 一些矩阵操作相关的题型。
 
+## 304. 二维区域和检索 - 矩阵不可变
+`中等`给定一个二维矩阵，计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2) 。
+[详细](https://leetcode-cn.com/problems/range-sum-query-2d-immutable/)
+```js
+/**
+ * @param {number[][]} matrix
+ */
+const NumMatrix = function(matrix) {
+    const m = matrix.length;
+    if (m > 0) {
+        const n = matrix[0].length;
+        // 将sums的行数和列数分别设为m+1和n+1是为了处理row1=0和col1=0的情况
+        this.sums = new Array(m+1).fill(0).map(() => new Array(n+1).fill(0));
+        for (let i = 0; i < m; i++) {
+            for (let j = 0; j < n; j++) {
+                this.sums[i+1][j+1] = this.sums[i][j+1] + this.sums[i+1][j] - this.sums[i][j] + matrix[i][j]
+            }
+        }
+    }
+};
+
+/** 
+ * @param {number} row1 
+ * @param {number} col1 
+ * @param {number} row2 
+ * @param {number} col2
+ * @return {number}
+ */
+NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
+    return this.sums[row2 + 1][col2 + 1] - this.sums[row1][col2 + 1] - this.sums[row2 + 1][col1] + this.sums[row1][col1];
+};
+```
+
 ## 832. 翻转图像
 `简单`给定一个二进制矩阵 A，我们想先水平翻转图像，然后反转图像并返回结果。
 水平翻转图片就是将图片的每一行都进行翻转，即逆序。例如，水平翻转 [1, 1, 0] 的结果是 [0, 1, 1]。

@@ -1,3 +1,5 @@
+const { navs, routes } = require('./getRoutes');
+
 module.exports = {
   title: 'Notes',
   descriptions: 'Use vue-press to build a knowledge base',
@@ -18,69 +20,77 @@ module.exports = {
   },
   themeConfig: {
     repo: 'kaypler/notes',
-    nav: [{
-        text: '面试',
-        link: '/interview/',
-      }, {
-        text: '工具库',
-        link: '/tool/'
-      }, {
-        text: '算法',
-        link: '/algorithm/'
-    }],
+    // nav: [{
+    //     text: '面试',
+    //     link: '/interview/',
+    //   }, {
+    //     text: '工具库',
+    //     link: '/tool/'
+    //   }, {
+    //     text: '算法',
+    //     link: '/algorithm/'
+    // }],
+    nav: navs,
     sidebarDepth: 1, // 提取到h2的标题
-    sidebar: {
-      '/interview/': [{
-        title: '手写系列',
-        collapsable: false,
-        children: [
-          'handwrite/promise'
-        ]
-      }],
-      '/tool/': [{
-        title: '基础',
-        collapsable: false,
-        children: []
-      }, {
-        title: '图片相关',
-        collapsable: false,
-        children: [
-          'picture/lazy-load'
-        ]
-      }, {
-        title: '文件操作',
-        collapsable: false,
-        children: [
-          'file/axios',
-          'file/wx2px'
-        ]
-      }],
-      '/algorithm/': [{
-        title: '排序和查找',
-        collapsable: false,
-        children: [
-          'sort-and-search/sort',
-          'sort-and-search/bisect',
-        ]
-      }, {
-        title: '图相关',
-        collapsable: false,
-        children: [
-          'graph/base',
-          'graph/depth-first-search',
-          'graph/topological',
-          'graph/kosaraju',
-        ]
-      }, {
-        title: 'Leecode',
-        collapsable: false,
-        children: [
-          'leecode/longest-common-string',
-          'leecode/matrix',
-          'leecode/slide-window',
-        ]
-      }]
-    }
+    // sidebar: {
+    //   '/interview/': [{
+    //     title: '面试真题',
+    //     collapsable: false,
+    //     children: [
+
+    //     ]
+    //   }, {
+    //     title: '手写系列',
+    //     collapsable: false,
+    //     children: [
+    //       'handwrite/promise'
+    //     ]
+    //   }],
+    //   '/tool/': [{
+    //     title: '基础',
+    //     collapsable: false,
+    //     children: []
+    //   }, {
+    //     title: '图片',
+    //     collapsable: false,
+    //     children: [
+    //       'picture/lazy-load'
+    //     ]
+    //   }, {
+    //     title: '文件操作',
+    //     collapsable: false,
+    //     children: [
+    //       'file/axios',
+    //       'file/wx2px'
+    //     ]
+    //   }],
+    //   '/algorithm/': [{
+    //     title: '排序和查找',
+    //     collapsable: false,
+    //     children: [
+    //       'sort-and-search/sort',
+    //       'sort-and-search/bisect',
+    //     ]
+    //   }, {
+    //     title: '图相关',
+    //     collapsable: false,
+    //     children: [
+    //       'graph/base',
+    //       'graph/depth-first-search',
+    //       'graph/topological',
+    //       'graph/kosaraju',
+    //     ]
+    //   }, {
+    //     title: 'Leecode',
+    //     collapsable: false,
+    //     children: [
+    //       'leecode/longest-common-string',
+    //       'leecode/matrix',
+    //       'leecode/slide-window',
+    //     ]
+    //   }]
+    // }
+    sidebar: routes
   },
   plugins: ['@vuepress/pwa', {
     serviceWorker: true,
