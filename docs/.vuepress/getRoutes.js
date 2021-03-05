@@ -13,8 +13,10 @@ const options = {
   'interview': {
     title: '面试',
     groups: [
+      { title: '经验之谈', path: 'experience' },
       { title: '大厂真题', path: 'subject' },
       { title: '手写系列', path: 'handwrite' },
+      { title: '性能调优', path: 'optimize' },
     ]
   },
   'tool': {
