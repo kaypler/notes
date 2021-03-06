@@ -1,4 +1,4 @@
-# 最长公共子串和子序列问题
+# 最长公共子串和子序列
 最长公共子串（Longest Common Substring）与最长公共子序列（Longest Common Subsequence）的区别： 
 子串要求在原字符串中是连续的，而子序列则只需保持相对顺序一致，并不要求连续。
 例如X = {a, Q, 1, 1}; Y = {a, 1, 1, d, f}那么，{a, 1, 1}是X和Y的最长公共子序列，但不是它们的最长公共字串。
@@ -34,4 +34,29 @@ if (word_a[i] == word_b[j]) { //两个字母相同
 } else { //两个字母不同
   cell[i][j] = Math.max(cell[i-1][j], cell[i][j-1]);
 }
+```
+
+### 1312. 让字符串成为回文串的最少插入次数
+`困难`给你一个字符串 s ，每一次操作你都可以在字符串的任意位置插入任意字符。
+请你返回让 s 成为回文串的最少操作次数[详细](https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)。
+```js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minInsertions = function(s) {
+    const n = s.length;
+    const t = s.split('').reverse();
+    const dp = new Array(n+1).fill(0).map(() => new Array(n+1).fill(0));
+    for (let i = 1; i < n+1; i++) {
+        for (let j = 1; j < n+1; j++) {
+            if (s[i-1] == t[j-1]) {
+                dp[i][j] = dp[i-1][j-1] + 1;
+            } else {
+                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+    } 
+    return n - dp[n][n];
+};
 ```
