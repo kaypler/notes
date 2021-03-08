@@ -6,7 +6,7 @@
 使用深度优先搜索查找给定有向图G的反向图Gr，根据由此得到的所有顶点的逆后序再次用深度优先搜索处理有向图G，
 其构建函数中的每一次递归调用所标记的顶点都在同一个强连通分量之中。
 
-![ANn image](./images/kosaraju.png)
+![An image](./images/kosaraju.png)
 
 ### 代码实现
 ```java
