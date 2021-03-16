@@ -1,5 +1,118 @@
 # Javascript
 
+## this 解析
+
+### 默认绑定
+- **独立函数调用**，可以把默认绑定看作是无法应用其他规则时的默认规则，this指向全局对象。
+- **严格模式**下，不能将全局对象用于默认绑定，this会绑定到undefined。只有函数运行在非严格模式下，默认绑定才能绑定到全局对象。在严格模式下调用函数则不影响默认绑定。
+```js
+function foo() { // 运行在严格模式下，this会绑定到undefined
+    "use strict";
+    
+    console.log( this.a );
+}
+
+var a = 2;
+
+// 调用
+foo(); // TypeError: Cannot read property 'a' of undefined
+
+// --------------------------------------
+
+function foo() { // 运行
+    console.log( this.a );
+}
+
+var a = 2;
+
+(function() { // 严格模式下调用函数则不影响默认绑定
+    "use strict";
+    
+    foo(); // 2
+})();
+```
+
+### 隐式绑定
+当函数引用有上下文对象时，隐式绑定规则会把函数中的this绑定到这个上下文对象。对象属性引用链中只有上一层或者说最后一层在调用中起作用。
+```js
+function foo() {
+    console.log( this.a );
+}
+
+var obj = {
+    a: 2,
+    foo: foo
+};
+
+obj.foo(); // 2
+```
+
+**隐式丢失** 被隐式绑定的函数特定情况下会丢失绑定对象，应用默认绑定，把this绑定到全局对象或者undefined上。
+```js
+// 虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身。
+// bar()是一个不带任何修饰的函数调用，应用默认绑定。
+function foo() {
+    console.log( this.a );
+}
+
+var obj = {
+    a: 2,
+    foo: foo
+};
+
+var bar = obj.foo; // 函数别名
+var a = "oops, global"; // a是全局对象的属性
+bar(); // "oops, global"
+```
+
+参数传递就是一种隐式赋值，传入函数时也会被隐式赋值。回调函数丢失this绑定是非常常见的。
+```js
+function foo() {
+    console.log( this.a );
+}
+
+function doFoo(fn) {
+    // fn其实引用的是foo
+    
+    fn(); // <-- 调用位置！
+}
+
+var obj = {
+    a: 2,
+    foo: foo
+};
+
+var a = "oops, global"; // a是全局对象的属性
+doFoo( obj.foo ); // "oops, global"
+```
+
+### 显式绑定
+通过call(..) 或者 apply(..)方法。第一个参数是一个对象，在调用函数时将这个对象绑定到this。因为直接指定this的绑定对象，称之为显示绑定。
+::: warning
+显示绑定无法解决丢失绑定问题。bind函数可以解决这个问题
+:::
+
+### new 绑定
+在JS中，构造函数只是使用new操作符时被调用的普通函数，他们不属于某个类，也不会实例化一个类。
+包括内置对象函数（比如Number(..)）在内的所有函数都可以用new来调用，这种函数调用被称为构造函数调用。
+实际上并不存在所谓的“构造函数”，只有对于函数的“构造调用”。<br>
+
+使用new来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。
+1. 创建（或者说构造）一个新对象。
+2. 这个新对象会被执行**Prototype**连接。
+3. 这个新对象会绑定到函数调用的this。
+4. 如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。
+
+## 闭包
+闭包是指有权访问另外一个函数作用域中的变量的函数。关键在于下面两点：
+- 是一个函数
+- 能访问另外一个函数作用域中的变量
+
+对于闭包有下面三个特性：
+1. 闭包可以访问当前函数以外的变量
+2. 即使外部函数已经返回，闭包仍能访问外部函数定义的变量
+3. 闭包可以更新外部变量的值
+
 ## 深拷贝
 ```js
 function cloneDeep() {
@@ -31,8 +144,15 @@ function cloneDeep() {
 ```
 
 ## 节流和防抖
-节流： 动作绑定事件，动作发生后一段时间后触发事件，在这段时间内，如果动作又发生，则无视该动作，直到事件执行完后，才能重新触发。
+函数节流指的是某个函数在一定时间间隔内（例如 3 秒）只执行一次，在这 3 秒内 无视后来产生的函数调用请求，也不会延长时间间隔。3 秒间隔结束后第一次遇到新的函数调用会触发执行，然后在这新的 3 秒内依旧无视后来产生的函数调用请求，以此类推。<br>
+函数节流非常适用于函数被频繁调用的场景，例如：window.onresize() 事件、mousemove 事件、上传进度等情况。
+
+实现方案有以下两种:
+- 第一种是用时间戳来判断是否已到执行时间，记录上次执行的时间戳，然后每次触发事件执行回调，回调中判断当前时间戳距离上次执行时间戳的间隔是否已经达到时间差（Xms） ，如果是则执行，并更新上次执行的时间戳，如此循环。
+- 第二种方法是使用定时器，比如当 scroll 事件刚触发时，打印一个 hello world，然后设置个 1000ms 的定时器，此后每次触发 scroll 事件触发回调，如果已经存在定时器，则回调不执行方法，直到定时器触发，handler 被清除，然后重新设置定时器。
+
 ```js
+// solution1 间隔时间
 function throttle(func, time){
   let activeTime = 0;
   return () => {
@@ -44,7 +164,7 @@ function throttle(func, time){
   }
 }
 
-// solution2 间隔时间反转标志位
+// solution2 定时器
 function throttle(callback, timeout) {
   let disable; // 触发回调是否禁用
   return function () {
@@ -58,9 +178,96 @@ function throttle(callback, timeout) {
   }
 }
 
+// underscore版本
+const throttle = function(func, wait, options) {
+  var timeout, context, args, result;
+  
+  // 上一次执行回调的时间戳
+  var previous = 0;
+  
+  // 无传入参数时，初始化 options 为空对象
+  if (!options) options = {};
 
+  var later = function() {
+    // 当设置 { leading: false } 时
+    // 每次触发回调函数后设置 previous 为 0
+    // 不然为当前时间
+    previous = options.leading === false ? 0 : _.now();
+    
+    // 防止内存泄漏，置为 null 便于后面根据 !timeout 设置新的 timeout
+    timeout = null;
+    
+    // 执行函数
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+
+  // 每次触发事件回调都执行这个函数
+  // 函数内判断是否执行 func
+  // func 才是我们业务层代码想要执行的函数
+  var throttled = function() {
+    
+    // 记录当前时间
+    var now = _.now();
+    
+    // 第一次执行时（此时 previous 为 0，之后为上一次时间戳）
+    // 并且设置了 { leading: false }（表示第一次回调不执行）
+    // 此时设置 previous 为当前值，表示刚执行过，本次就不执行了
+    if (!previous && options.leading === false) previous = now;
+    
+    // 距离下次触发 func 还需要等待的时间
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    
+    // 要么是到了间隔时间了，随即触发方法（remaining <= 0）
+    // 要么是没有传入 {leading: false}，且第一次触发回调，即立即触发
+    // 此时 previous 为 0，wait - (now - previous) 也满足 <= 0
+    // 之后便会把 previous 值迅速置为 now
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        
+        // clearTimeout(timeout) 并不会把 timeout 设为 null
+        // 手动设置，便于后续判断
+        timeout = null;
+      }
+      
+      // 设置 previous 为当前时间
+      previous = now;
+      
+      // 执行 func 函数
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      // 最后一次需要触发的情况
+      // 如果已经存在一个定时器，则不会进入该 if 分支
+      // 如果 {trailing: false}，即最后一次不需要触发了，也不会进入这个分支
+      // 间隔 remaining milliseconds 后触发 later 方法
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+
+  // 手动取消
+  throttled.cancel = function() {
+    clearTimeout(timeout);
+    previous = 0;
+    timeout = context = args = null;
+  };
+
+  // 执行 _.throttle 返回 throttled 函数
+  return throttled;
+};
 ```
-防抖：动作绑定事件，动作发生后一定时间后触发事件，在这段时间内，如果该动作又发生，则重新等待一定时间再触发事件。
+
+防抖函数 debounce 指的是某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次。假如我们设置了一个等待时间 3 秒的函数，在这 3 秒内如果遇到函数调用请求就重新计时 3 秒，直至新的 3 秒内没有函数调用请求，此时执行函数，不然就以此类推重新计时。<br>
+
+举一个小例子：假定在做公交车时，司机需等待最后一个人进入后再关门，每次新进一个人，司机就会把计时器清零并重新开始计时，重新等待 1 分钟再关门，如果后续 1 分钟内都没有乘客上车，司机会认为乘客都上来了，将关门发车。<br>
+
+应用：input 输入回调事件添加防抖函数后，只会在停止输入后触发一次
+
+
 ```js
 function debounce(func, time) {
   let timer = null;

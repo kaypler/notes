@@ -19,6 +19,48 @@ if (word_a[i] == word_b[j]) { //两个字母相同
 查找单词hish和vista的最长公共子串时，网格如下：
 ![An image](./images/longest-common-substring2.png)
 
+**代码实现**
+```js
+function lcs(word1, word2) {
+		var max = 0, index = 0;
+		var lcsarr = new Array(word1.length + 1);
+		for (var i = 0; i <= word1.length; ++i) {
+			lcsarr[i] = new Array(word2.length + 1);
+			for (var j = 0; j <= word2.length; ++j) {
+				lcsarr[i][j] = 0;
+			}
+		}
+
+		for (var i = 0; i <= word1.length; ++i) {
+			for (var j = 0; j <= word2.length; ++j) {
+				if (i == 0 || j == 0) {
+					lcsarr[i][j] = 0;
+				} else {
+					if (word1[i-1] == word2[j-1]) {
+						lcsarr[i][j] = lcsarr[i-1][j-1] + 1;
+					} else {
+						lcsarr[i][j] = 0;
+					}
+				}
+				if (max < lcsarr[i][j]) {
+					max = lcsarr[i][j];
+					index = i;
+				}
+			}
+		}
+
+		var str = '';
+		if (max == 0) {
+			return '';
+		} else {
+			for (var i = index - max; i < index; ++i) {
+				str += word2[i];
+			}
+			return str;
+		}
+	}
+```
+
 ## 最长公共子序列
 假如Alex不小心输入了fosh，他原本想输入的是fish还是fort呢？它们的最长公共子串的长度相同，都包含两个字母，
 但fosh和fish更像！
