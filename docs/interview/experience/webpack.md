@@ -28,6 +28,26 @@ webpack-dev-server主要包含了三个部分：
 3. 热更新效率低下。当基于打包器启动时，编辑文件后将重新构建文件本身。显然我们不应该重新构建整个包，
    因为这样更新速度会随着应用体积增长而直线下降。
 
+## webpack中的Sourcemap
+Sourcemap 本质上是一个信息文件，里面储存着代码转换前后的对应位置信息。 
+Sourcemap 解决了在打包过程中，代码经过压缩，去空格以及 babel 编译转化后，由于代码之间差异性过大，造成无法debug的问题.
+
+webpack中的sourcemap的基本类型包括：
+1. **eval**: 将每一个module模块，执行eval，执行后不会生成sourcemap文件，仅仅是在每一个模块后，增加sourceURL来关联模块处理前后的对应关系
+2. **soure-map**: 为每一个打包后的模块生成独立的soucemap文件
+3. **inline**: 与source-map不同，增加inline属性后，不会生成独立的.map文件，而是将.map文件以dataURL的形式插入
+4. **cheap**: cheap属性在打包后同样会为每一个模块生成.map文件，但是与source-map的区别在于cheap生成的.map文件会忽略原始代码中的列信息
+5. **module**: 含了loader模块之间的sourcemap
+
+**总结：**
+- 在开发环境中我们使用：`cheap-module-eval-source-map`
+- 在生产环境中我们使用：`cheap-module-source-map`
+
+`eval-source-map`组合使用是指将.map以DataURL的形式引入到打包好的模块中，类似于inline属性的效果，我们在生产中，使用`eval-source-map`会使打包后的文件太大，
+因此在生产环境中不会使用``eval-source-map`。但是因为eval的rebuild速度快，因此我们可以在本地环境中增加eval属性。
+
+ 
+
 ## 提升webpack打包速度
 1. 使用`webpack-bundle-analyzer`对项目进行模块分析生成report，查看report后看看哪些模块体积过大，然后针对性优化；
 2. 配置`externals`，防止将某些import的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖；
