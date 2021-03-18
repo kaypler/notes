@@ -57,6 +57,15 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 4. async 则是一个乱序执行的主，反正对它来说脚本的加载和执行是紧紧挨着的，所以不管你声明的顺序如何，只要它加载完了就会立刻执行
 5. 仔细想想，async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对于那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
 
+## 浏览器的Cookie策略
+浏览器所持有的Cookie分为两种：一种是“Session Cookie”，又称“临时Cookie”；另一种是“Third-party Cookie”，也称为“本地Cookie”。
+
+两者的区别在于，Third-party Cookie是服务器在Set-Cookie时指定了Expire时间，只有到了Expire事件后Cookie才会失效，所以这种Cookie保存在本地；
+而Session Cookie则没有指定Expire时间，所以浏览器关闭后，Session Cookie就失效了。
+
+在浏览网站的过程中，若是一个网站设置了Session Cookie，那么在浏览器进程的生命周期内，即使浏览器
+新打开了Tab页，Session Cookie也都是有效的。Session Cookie保存在浏览器进程的内存空间中；而Third-party Cookie则保存在本地。
+
 ## 跨域问题
 协议、域名、端口有一项不同即构成跨域，二级域名不同也会构成跨域。
 同源策略只是浏览器客户端的防护机制，当发现非同源HTTP请求时会拦截响应，但服务器依然处理了这个请求。

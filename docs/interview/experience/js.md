@@ -1,5 +1,14 @@
 # Javascript
 
+## 原型
+每个对象拥有一个原型对象，对象以其原型为模板，从原型继承方法和属性，这些属性和方法定义在对象的构造器函数的 prototype 属性上，而非对象实例本身。
+![An image](./images/prototype.png)
+
+### 原型链
+每个对象拥有一个原型对象，通过 __proto__ 指针指向上一个原型 ，并从中继承方法和属性，同时原型对象也可能拥有原型，这样一层一层，
+最终指向 null。这种关系被称为原型链 (prototype chain)，通过原型链一个对象会拥有定义在其他对象中的属性和方法。
+![An image](./images/prototype-chain.png)
+
 ## this 解析
 
 ### 默认绑定
@@ -9,15 +18,11 @@
 function foo() { // 运行在严格模式下，this会绑定到undefined
     "use strict";
     
-    console.log( this.a );
+    console.log(this.a);
 }
-
 var a = 2;
-
 // 调用
 foo(); // TypeError: Cannot read property 'a' of undefined
-
-// --------------------------------------
 
 function foo() { // 运行
     console.log( this.a );

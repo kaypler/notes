@@ -1,2 +1,59 @@
 # 安全篇
 
+## XSS
+**跨站脚本攻击**，英文全称是Cross Site Script。XSS攻击，通常是指黑客通过“HTML注入”篡改了网页，插入了恶意的脚本，
+从而在用户浏览网页时，控制用户浏览器的一种攻击。在一开始，这种攻击的演示案例是跨域的，所以叫“跨站脚本”。但是发展到今天，由于
+JavaScript的强大功能以及网站前端应用的复杂化，是否跨域已经不重要。
+
+XSS攻击有以下分类：
+- **反射型XSS**只是简单地把用户输入地数据“反射”给浏览器。也就是说，黑客往往需要诱使用户“点击”一个而已链接，才能成功。
+- **存储型XSS**会把用户输入地数据“存储”在服务器端。这种XSS具有很强地稳定性。
+- **DOM Based XSS**是通过修改页面的DOM节点形成的XSS。
+
+XSS攻击的危害：
+- Cookie劫持，可以通过document.cookie获取用户的cookie信息
+- 构造GET与POST请求
+- 识别用户的浏览器
+- 识别用户安装的软件
+- 获取用户曾经访问过的网站
+- XSS Worm
+
+XSS的防御
+- 服务器发送Set-Cookie头，设置**HttpOnly**
+- 输入检查，对<、>、'、"等特殊字符转义
+- 输出检查
+- 富文本禁止事件，过滤危险标签`<iframe>`,`script`,`base`,`form`，建议使用白名单。
+
+**HtmlEncode:**
+| 原字符      | 转义字符   |
+| :--------- | :-------  |
+| &          | \&amp;    |
+| <          | \&lt;     | 
+| >          | \&gt;     | 
+| "          | \&quot;   |
+| '          | \&#x27;   | 
+| /          | \&#x2F;   | 
+
+## CSRF
+CSRF的全名是Cross Site Request Forgery，翻译成中文就是跨站点请求伪造。
+
+CSRF的防御：
+- 验证码
+- Referer Check，检查请求是否来自合法的源
+- token
+
+## ClickJacking
+点击劫持是一种视觉上的欺骗手段。攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，
+此时用户将在不知情的情况下点击透明的iframe页面。
+
+
+## DDOS
+DDOS又称分布式拒绝服务，全程是Distributed Denial of Service。DDOS本是利用合理的请求造成资源过载，导致服务不可用。
+
+## CSP
+内容安全策略 (CSP) 是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。
+无论是数据盗取、网站内容污染还是散发恶意软件，这些攻击都是主要的手段。
+
+为使CSP可用, 你需要配置你的网络服务器返回  Content-Security-Policy  HTTP头部 ( 有时你会看到一些关于X-Content-Security-Policy头部的提法, 那是旧版本，你无须再如此指定它)。
+除此之外,  `<meta>` 元素也可以被用来配置该策略, 例如
+>\<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">

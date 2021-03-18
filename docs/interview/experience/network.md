@@ -22,6 +22,9 @@ TCP是全双工信道，何为全双工就是客户端与服务端建立两条�
 5. Client收到FIN包后向Server发送ACK包，然后进入TIME_WAIT状态，接着等待足够长的时间（2MSL）以确保Server接收到ACK包，最后回到CLOSED状态，释放网络资源。
 6. Server收到Client返回的ACK包后便回到CLOSED状态，释放网络资源。
 
+## TCP和UDP的区别
+
+
 ## HTTPS握手过程
 1. 客户端使用https的url访问web服务器,要求与服务器建立ssl连接
 2. web服务器收到客户端请求后, 确认加密通信协议版本是否一致，如果版本一致则返回服务器证书，否则关闭加密通信

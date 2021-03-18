@@ -28,6 +28,82 @@ webpack-dev-server主要包含了三个部分：
 3. 热更新效率低下。当基于打包器启动时，编辑文件后将重新构建文件本身。显然我们不应该重新构建整个包，
    因为这样更新速度会随着应用体积增长而直线下降。
 
+## webpack4的splitChunks
+splitChunks是webpack4推出的一个分包规则，它有一个默认的配置，这也符合webpack4开箱即用的特性，它的默认配置如下：
+```js
+module.exports = {
+  //...
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  }
+};
+```
+
+### chunks
+chunks的含义是拆分模块的范围，它有三个值async、initial和all。
+- **async**表示只从异步加载得模块（动态加载import()）里面进行拆分
+- **initial**表示只从入口模块进行拆分
+- **all**表示以上两者都包括
+
+### cacheGroups
+splitChunks就是根据cacheGroups去拆分模块的，包括之前说的chunks属性和之后要介绍的种种属性其实都是对缓存组进行配置的。
+splitChunks默认有两个缓存组：vender和default。
+
+另外还需要说明一下，cacheGroups之外设置的约束条件比如说默认配置里面的chunks、minSize、minChunks等等都会作用于cacheGroups，
+除了test, priority and reuseExistingChunk，这三个是只能定义在cacheGroup这一层的。cacheGroups也可以将上面的所有属性都重新定义，
+就会覆盖外面的默认属性，比如default这个缓存组就设置了minChunks=2，他会覆盖掉默认值1。
+
+priority的含义是权重，如果有一个模块满足了多个缓存组的条件就会去按照权重划分，谁的权重高就优先按照谁的规则处理。
+
+### maxInitialRequests
+maxInitialRequests是splitChunks里面比较难以理解的点之一，它表示允许入口并行加载的最大请求数，
+之所以有这个配置也是为了对拆分数量进行限制，不至于拆分出太多模块导致请求数量过多而得不偿失。
+
+这里需要注意几点：
+- 入口文件本身算一个请求
+- 如果入口里面有动态加载得模块这个不算在内
+- 通过runtimeChunk拆分出的runtime不算在内
+- 只算js文件的请求，css不算在内
+- 如果同时又两个模块满足cacheGroup的规则要进行拆分，但是maxInitialRequests的值只能允许再拆分一个模块，那尺寸更大的模块会被拆分出来
+
+### maxAsyncRequests
+maxAsyncRequests和maxInitialRequests有相似之处，它俩都是用来限制拆分数量的，maxInitialRequests是用来限制入口的拆分数量
+而maxAsyncRequests是用来限制异步模块内部的并行最大请求数的，说白了你可以理解为是每个import()它里面的最大并行请求数量。
+
+这其中要注意以下几点：
+- import()文件本身算一个请求
+- 并不算js以外的公共资源请求比如css
+- 如果同时有两个模块满足cacheGroup的规则要进行拆分，但是maxInitialRequests的值只能允许再拆分一个模块，那尺寸更大的模块会被拆分出来
+
+**splitChunks之其余要点**
+- splitChunks.cacheGroup必须同时满足各个条件才能生效，这个之前我理解错误，我以为比如minSize或是minChunks等条件只要满足一条就可以拆分，但是实际上必须同时满足才行
+- splitChunks的配置项都是作用于cacheGroup上的，如果将cacheGroup的默认两个分组vendor和default设置为false，则splitChunks就不会起作用
+- minChunks、maxAsyncRequests、maxInitialRequests的值必须设置为大于等于1的数
+- 当chunk没有名字时，通过splitChunks分出的模块的名字用id替代，当然你也可以通过name属性自定义
+- 当父chunk和子chunk同时引入相同的module时，并不会将其分割出来而是删除掉子chunk里面共同的module，保留父chunk的module，这个是因为 optimization.removeAvaliableModules 默认是true
+- 当两个cacheGroup.priority相同时，先定义的会先命中
+- 除了js，splitChunks也适用于css
+ 
+
 ## webpack中的Sourcemap
 Sourcemap 本质上是一个信息文件，里面储存着代码转换前后的对应位置信息。 
 Sourcemap 解决了在打包过程中，代码经过压缩，去空格以及 babel 编译转化后，由于代码之间差异性过大，造成无法debug的问题.
