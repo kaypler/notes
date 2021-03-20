@@ -118,9 +118,28 @@ doFoo( obj.foo ); // "oops, global"
 2. 即使外部函数已经返回，闭包仍能访问外部函数定义的变量
 3. 闭包可以更新外部变量的值
 
+## let 与 const
+
+## let
+1. `var`命令会发生“变量提升”现象，即变量可以在声明之前使用，值为`undefined`。为了纠正这种现象，`let`命令改变了语法行为，它所声明的变量一定要在声明后使用，否则报错。  
+2. 暂时性死区: 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+```js
+var tmp = 123;
+
+if (true) {
+  tmp = 'abc'; // ReferenceError
+  let tmp;
+}
+```
+3. `let`不允许在相同作用域内，重复声明同一个变量。
+4. `let`实际上为 JavaScript 新增了块级作用域。
+
+## const
+1. `const`声明一个只读的常量。一旦声明，常量的值就不能改变。
+
 ## 深拷贝
 ```js
-function cloneDeep() {
+function cloneDeep(obj) {
   // 当null NaN undefined number string等基本数据类型时直接返回
   if (obj === null || typeof obj !== 'object') {
     return obj;
