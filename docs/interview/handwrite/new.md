@@ -1,4 +1,4 @@
-# 手写new
+# new
 
 ```js
 function create() {

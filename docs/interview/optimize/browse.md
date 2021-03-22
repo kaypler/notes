@@ -1,7 +1,7 @@
 # 浏览器性能优化
 
 ## 浏览器多进程模型
-![An image](images/browse-1.png)
+![An image](./images/browse-1.png)
 
 - **浏览器进程**：负责界面显示、用户交互、子进程管理，提供存储等。
 - **渲染进程**：每个页卡都有单独的渲染进程，核心用于渲染页面。
@@ -29,14 +29,14 @@
 - 服务器返回304去查询浏览器缓存进行返回
   
 ## HTTP发展历程
-http 0.9 负责传输html，最早的时候没有请求头和响应头
-http 1.0 提供了http的header，根据header的不同来处理不同的资源
-http 1.1 默认开启了keep-alive连接复用，管线化支持同一域名最多6个请求
-http 2.0 一个域名一个tcp链接来发送数据（多路复用）,头部压缩，服务器可以推送数据给客户端
-http 3.0 解决了tcp的对头阻塞问题 QUIC协议 采用了udp
+1. http 0.9 负责传输html，最早的时候没有请求头和响应头
+2. http 1.0 提供了http的header，根据header的不同来处理不同的资源
+3. http 1.1 默认开启了keep-alive连接复用，管线化支持同一域名最多6个请求
+4. http 2.0 一个域名一个tcp链接来发送数据（多路复用）,头部压缩，服务器可以推送数据给客户端
+5. http 3.0 解决了tcp的对头阻塞问题 QUIC协议 采用了udp
 
 ## 渲染流程
-![An image](images/browse-2.png)
+![An image](./images/browse-2.png)
 1. 浏览器无法直接使用HTML，需要将HTML转化成DOM树。（document）
 2. 浏览器无法解析纯文本的css样式，需要对css进行解析，解析成stylesheets。（document.styleSheets）
 3. 计算出DOM树中每个节点的具体样式（Attachment）

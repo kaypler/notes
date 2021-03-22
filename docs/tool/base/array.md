@@ -15,6 +15,20 @@ function flatten(arr) {
 }
 ```
 
+## 打乱顺序
+```js
+export const shuffle = (arr) => {
+  const result = [];
+  let random;
+  while (arr.length > 0) {
+    random = Math.floor(Math.random() * arr.length);
+    result.push(arr[random]);
+    arr.splice(random, 1);
+  }
+  return result;
+};
+```
+
 ## 去重
 ```js
 function unique(arr) {

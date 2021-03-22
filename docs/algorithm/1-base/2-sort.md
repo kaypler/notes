@@ -115,3 +115,81 @@ public class Insertion {
   }
 }
 ```
+
+## 归并排序
+要将一个数组排序，可以先递归地把它分成两半分别排序，然后将结果归并起来。这就是归并排序。
+```java
+public class Merge {
+
+    private Merge() { }
+
+    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+        for (int k = lo; k <= hi; k++) {
+            aux[k] = a[k]; 
+        }
+
+        // merge back to a[]
+        int i = lo, j = mid+1;
+        for (int k = lo; k <= hi; k++) {
+            if      (i > mid)              a[k] = aux[j++];
+            else if (j > hi)               a[k] = aux[i++];
+            else if (less(aux[j], aux[i])) a[k] = aux[j++];
+            else                           a[k] = aux[i++];
+        }
+    }
+
+    // mergesort a[lo..hi] using auxiliary array aux[lo..hi]
+    private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
+        if (hi <= lo) return;
+        int mid = lo + (hi - lo) / 2;
+        sort(a, aux, lo, mid);
+        sort(a, aux, mid + 1, hi);
+        merge(a, aux, lo, mid, hi);
+    }
+
+    /**
+     * Rearranges the array in ascending order, using the natural order.
+     * @param a the array to be sorted
+     */
+    public static void sort(Comparable[] a) {
+        Comparable[] aux = new Comparable[a.length];
+        sort(a, aux, 0, a.length-1);
+    }
+    
+    // is v < w ?
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+}
+```
+
+## 快速排序
+快速排序是一种分治的排序算法。它将一个数组分成两个子数组，将两部分独立地排序。
+```java
+public class Quick {
+  public static void sort(Comparable[] a) {
+    StdRandom.shuffle(a);     // 消除对输入的依赖
+    sort(a, 0, a.length - 1);
+  }
+
+  private static void sort(Comparable[] a, int lo, int hi) {
+    if (hi <= lo) return;
+    int j = partition(a, lo, hi);
+    sort(a, lo, j - 1);
+    sort(a, j + 1, hi);
+  }
+
+  private static int partition(Comparable[] a, int lo, int hi) {
+    int i = lo, j = hi + 1;       // 左右扫描指针
+    Comparable v = a[lo];         // 切分元素
+    while (true) {
+      while (less(a[++i], v) if (i == hi) break;
+      while (less(v, a[--j])) if (j == lo) break;
+      if (i >= j) break;
+      exch(a, i, j);
+    }
+    exch(a, lo, j);
+    return j;
+  }
+}
+```

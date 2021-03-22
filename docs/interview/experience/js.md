@@ -120,7 +120,7 @@ doFoo( obj.foo ); // "oops, global"
 
 ## let 与 const
 
-## let
+### let
 1. `var`命令会发生“变量提升”现象，即变量可以在声明之前使用，值为`undefined`。为了纠正这种现象，`let`命令改变了语法行为，它所声明的变量一定要在声明后使用，否则报错。  
 2. 暂时性死区: 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
 ```js
@@ -134,236 +134,57 @@ if (true) {
 3. `let`不允许在相同作用域内，重复声明同一个变量。
 4. `let`实际上为 JavaScript 新增了块级作用域。
 
-## const
+### const
 1. `const`声明一个只读的常量。一旦声明，常量的值就不能改变。
+2. 其它点和`let`一致
 
-## 深拷贝
-```js
-function cloneDeep(obj) {
-  // 当null NaN undefined number string等基本数据类型时直接返回
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-  // Date类型
-  if (obj instanceof Date) {
-    const copy = new Date();
-    copy.setTime(obj.getTime());
-    return copy;
-  }
-  // 正则类型
-  if (obj.instanceof RegExp) {
-    const Constructor = obj.constructor;
-    return new Constructor(obj);
-  }
-  if (obj instanceof Array || obj instanceof Object) {
-    const copyObj = Array.isArray(obj) ? [] : {};
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        copyObj[key] = cloneDeep(obj[key]);
-      }
-    }
-    return copyObj;
-  }
-}
-```
+## 严格模式
+严格模式主要有以下限制：
+- 变量必须声明后再使用
+- 函数的参数不能有同名属性，否则报错
+- 不能使用with语句
+- 不能对只读属性赋值，否则报错
+- 不能使用前缀 0 表示八进制数，否则报错
+- 不能删除不可删除的属性，否则报错
+- 不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+- eval不会在它的外层作用域引入变量
+- eval和arguments不能被重新赋值
+- arguments不会自动反映函数参数的变化
+- 不能使用arguments.callee
+- 不能使用arguments.caller
+- 禁止this指向全局对象
+- 不能使用fn.caller和fn.arguments获取函数调用的堆栈
+- 增加了保留字（比如protected、static和interface）
 
-## 节流和防抖
-函数节流指的是某个函数在一定时间间隔内（例如 3 秒）只执行一次，在这 3 秒内 无视后来产生的函数调用请求，也不会延长时间间隔。3 秒间隔结束后第一次遇到新的函数调用会触发执行，然后在这新的 3 秒内依旧无视后来产生的函数调用请求，以此类推。<br>
-函数节流非常适用于函数被频繁调用的场景，例如：window.onresize() 事件、mousemove 事件、上传进度等情况。
+## 模块化
+**AMD 与 CMD**：
 
-实现方案有以下两种:
-- 第一种是用时间戳来判断是否已到执行时间，记录上次执行的时间戳，然后每次触发事件执行回调，回调中判断当前时间戳距离上次执行时间戳的间隔是否已经达到时间差（Xms） ，如果是则执行，并更新上次执行的时间戳，如此循环。
-- 第二种方法是使用定时器，比如当 scroll 事件刚触发时，打印一个 hello world，然后设置个 1000ms 的定时器，此后每次触发 scroll 事件触发回调，如果已经存在定时器，则回调不执行方法，直到定时器触发，handler 被清除，然后重新设置定时器。
-
-```js
-// solution1 间隔时间
-function throttle(func, time){
-  let activeTime = 0;
-  return () => {
-    const current = Date.now();
-    if(current - activeTime > time) {
-      func.apply(this, arguments);
-      activeTime = Date.now();
-    }
-  }
-}
-
-// solution2 定时器
-function throttle(callback, timeout) {
-  let disable; // 触发回调是否禁用
-  return function () {
-    const context = this; // 持有执行上下文
-    const args = arguments; // 记录传参
-    if (!disable) { // 首次调用或者贤者时间过了，禁用解除
-      callback.apply(context, args); // 可以触发回调
-      disable = true; // 马上禁用
-      setTimeout(_ => disable = false, timeout); // 贤者时间过了，禁用解除
-    }
-  }
-}
-
-// underscore版本
-const throttle = function(func, wait, options) {
-  var timeout, context, args, result;
-  
-  // 上一次执行回调的时间戳
-  var previous = 0;
-  
-  // 无传入参数时，初始化 options 为空对象
-  if (!options) options = {};
-
-  var later = function() {
-    // 当设置 { leading: false } 时
-    // 每次触发回调函数后设置 previous 为 0
-    // 不然为当前时间
-    previous = options.leading === false ? 0 : _.now();
-    
-    // 防止内存泄漏，置为 null 便于后面根据 !timeout 设置新的 timeout
-    timeout = null;
-    
-    // 执行函数
-    result = func.apply(context, args);
-    if (!timeout) context = args = null;
-  };
-
-  // 每次触发事件回调都执行这个函数
-  // 函数内判断是否执行 func
-  // func 才是我们业务层代码想要执行的函数
-  var throttled = function() {
-    
-    // 记录当前时间
-    var now = _.now();
-    
-    // 第一次执行时（此时 previous 为 0，之后为上一次时间戳）
-    // 并且设置了 { leading: false }（表示第一次回调不执行）
-    // 此时设置 previous 为当前值，表示刚执行过，本次就不执行了
-    if (!previous && options.leading === false) previous = now;
-    
-    // 距离下次触发 func 还需要等待的时间
-    var remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
-    
-    // 要么是到了间隔时间了，随即触发方法（remaining <= 0）
-    // 要么是没有传入 {leading: false}，且第一次触发回调，即立即触发
-    // 此时 previous 为 0，wait - (now - previous) 也满足 <= 0
-    // 之后便会把 previous 值迅速置为 now
-    if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        
-        // clearTimeout(timeout) 并不会把 timeout 设为 null
-        // 手动设置，便于后续判断
-        timeout = null;
-      }
-      
-      // 设置 previous 为当前时间
-      previous = now;
-      
-      // 执行 func 函数
-      result = func.apply(context, args);
-      if (!timeout) context = args = null;
-    } else if (!timeout && options.trailing !== false) {
-      // 最后一次需要触发的情况
-      // 如果已经存在一个定时器，则不会进入该 if 分支
-      // 如果 {trailing: false}，即最后一次不需要触发了，也不会进入这个分支
-      // 间隔 remaining milliseconds 后触发 later 方法
-      timeout = setTimeout(later, remaining);
-    }
-    return result;
-  };
-
-  // 手动取消
-  throttled.cancel = function() {
-    clearTimeout(timeout);
-    previous = 0;
-    timeout = context = args = null;
-  };
-
-  // 执行 _.throttle 返回 throttled 函数
-  return throttled;
-};
-```
-
-防抖函数 debounce 指的是某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次。假如我们设置了一个等待时间 3 秒的函数，在这 3 秒内如果遇到函数调用请求就重新计时 3 秒，直至新的 3 秒内没有函数调用请求，此时执行函数，不然就以此类推重新计时。<br>
-
-举一个小例子：假定在做公交车时，司机需等待最后一个人进入后再关门，每次新进一个人，司机就会把计时器清零并重新开始计时，重新等待 1 分钟再关门，如果后续 1 分钟内都没有乘客上车，司机会认为乘客都上来了，将关门发车。<br>
-
-应用：input 输入回调事件添加防抖函数后，只会在停止输入后触发一次
+- AMD是 RequireJS 在推广过程中对模块定义的规范化产出。
+- CMD是 SeaJS 在推广过程中对模块定义的规范化产出。
+- CMD推崇依赖就近，AMD推崇依赖前置。
 
 
-```js
-function debounce(func, time) {
-  let timer = null;
-  return () => {
-    clearTimeout(timer);
-    timer = setTimeout(()=> {
-      func.apply(this, arguments)
-    }, time);
-  }
-}
+**ES Module与CommonJS**:
 
-/**
- * 进阶版本
- * @description 只要一直调用, callback 将不会被触发
- * 在一次调用结束后, 只有等待 timeout ms 时间, 才能继续调用 callback
- * immediate 决定触发时机
- * @example 
- * 1. 点击按钮发送请求（保存数据之类的）
- * 2. 搜索时自动联想
- * 3. 自动保存
- * 4. Debouncing a resize/scroll event handler
- */
-function debounce(callback, timeout, immediate) {
-  let timer;
-  return function () {
-    const context = this; // 持有执行上下文
-    const args = arguments; // 记录传参
-    const later = function () {
-      timer = null; // 贤者时间过了，重振旗鼓，重置为初始状态
-      if (!immediate) callback.apply(context, args); // 设置为尾部调用才延时触发
-    }
-    const callNow = immediate && !timer; // 如果确认允许首部调用，且首次调用，那么本次立即触发
-    clearTimeout(timer); // 杀掉上次的计时器，重新计时
-    timer = setTimeout(later, timeout); // 重启一个计时器，过了贤者时间之后才触发
-    callNow && callback.apply(context, args); // 设置为首部调用立即触发
-  }
-}
-```
+- CommonJS模块是对象，是运行时加载，运行时才把模块挂载在exports之上（加载整个模块的所有），加载模块其实就是查找对象属性。
+- ES Module不是对象，是使用export显性指定输出，再通过import输入。此法为编译时加载，编译时遇到import就会生成一个只读引用。
+  等到运行时就会根据此引用去被加载的模块取值。所以不会加载模块所有方法，仅取所需。
+- CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+- CommonJS 模块是运行时加载，ES6 模块是编译时输出接口
 
-## 寄生组合式继承
-```js
-// 通过借用构造函数来继承属性, 通过原型链来继承方法
-// 不必为了指定子类型的原型而调用父类型的构造函数,我们只需要父类型的一个副本而已
-// 本质上就是使用寄生式继承来继承超类型的原型, 然后再讲结果指定给子类型的原型
-function object(o){ // ===Object.create()
-  function F(){};
-  F.prototype = o;
-  return new F();
-}
-function c1(name) {
-  this.name = name;
-  this.color = ['red', 'green'];
-}
-c1.prototype.sayName = function () {
-  console.log(this.name);
-}
-function c2(name, age) {
-  c1.call(this, name)
-  this.age = age
-}
-// 第一步:创建父类型原型的一个副本
-// 第二步:为创建的副本添加 constructor 属性, 从而弥补因重写原型而失去的默认的 constructor 属性
-// 第三步:将新创建的对象(即副本)赋值给子类型的原型
-function inheritPrototype(superType, subType) {
-  const prototype = object(superType.prototype);
-  prototype.constructor = subType;
-  subType.prototype = prototype;
-}
 
-inheritPrototype(c1, c2);
-// c2的方法必须放在寄生继承之后
-c2.prototype.sayAge = function () {
-  console.log(this.age);
-}
-```
+**CommonJS与AMD/CMD**:
+
+- AMD/CMD是CommonJS在浏览器端的解决方案。
+- CommonJS是同步加载（代码在本地，加载时间基本等于硬盘读取时间）。
+- AMD/CMD是异步加载（浏览器必须这么做，代码在服务端）
+
+
+**UMD与AMD/CMD**:
+
+- UMD（Universal Module Definition）是AMD和CommonJS的糅合，跨平台的解决方案。
+- AMD模块以浏览器第一的原则发展，异步加载模块。
+- CommonJS模块以服务器第一原则发展，选择同步加载，它的模块无需包装(unwrapped modules)。
+- UMD先判断是否支持Node.js的模块（exports）是否存在，存在则使用Node.js模块模式。再判断是否支持AMD（define是否存在），存在则使用AMD方式加载模块。
+
+[更多](https://juejin.cn/post/6844903663404580878)

@@ -5,9 +5,10 @@ const options = {
   'algorithm': {
     title: '算法',
     groups: [
-      { title: '基础', path: 'base' },
-      { title: '图', path: 'graph' },
-      { title: 'LeeCode', path: 'leecode' }
+      { title: '基础', path: '1-base' },
+      { title: '图', path: '2-graph' },
+      { title: '字符串', path: '3-string' },
+      { title: 'LeeCode', path: '4-leecode' }
     ]
   },
   'interview': {
