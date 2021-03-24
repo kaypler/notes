@@ -4,7 +4,7 @@
 
 ### 1. -7按位取反后的结果
 ::: details 查看答案
--6 万能公式：`~x = - (x+1)` [详细](/algorithm/base/4-bitwise-negation)
+6 万能公式：`~x = - (x+1)` [详细](/algorithm/base/4-bitwise-negation)
 :::
 
 ## 数组

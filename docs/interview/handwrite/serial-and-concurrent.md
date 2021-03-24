@@ -1,18 +1,49 @@
-# 并发请求
+# 串行和并行
+
+## 串行执行Promise
+```js
+var promises = [2, 4, 6, 3, 1].map((i) => {
+  return new Promise(resolve => {
+    console.log(i);
+    resolve(i)
+  })
+})
+
+function syncRun(promises) {
+  let res = [];
+  return new Promise(resolve => {
+    promises.reduce((pre, next) => {
+      return pre.then((data) => {
+        res.push(data);
+        return next;
+      })
+    }).then((data) => {
+      res.push(data);
+      resolve(res)
+    })
+  });
+}	
+
+syncRun(promises).then(res => {
+  console.log(res);
+})
+```
+
+## 并发请求
 要求：任意时刻，同时下载的链接数量不可以超过 3 个。 试写出一段代码实现这个需求，要求尽可能快速地将所有接口中的数据得到。
 
 ```js
 var urls = [
-  'http://jsonplaceholder.typicode.com/posts/1',
-  'http://jsonplaceholder.typicode.com/posts/2', 
-  'http://jsonplaceholder.typicode.com/posts/3', 
-  'http://jsonplaceholder.typicode.com/posts/4',
-  'http://jsonplaceholder.typicode.com/posts/5', 
-  'http://jsonplaceholder.typicode.com/posts/6', 
-  'http://jsonplaceholder.typicode.com/posts/7', 
-  'http://jsonplaceholder.typicode.com/posts/8',
-  'http://jsonplaceholder.typicode.com/posts/9', 
-  'http://jsonplaceholder.typicode.com/posts/10'
+  'https://jsonplaceholder.typicode.com/posts/1',
+  'https://jsonplaceholder.typicode.com/posts/2', 
+  'https://jsonplaceholder.typicode.com/posts/3', 
+  'https://jsonplaceholder.typicode.com/posts/4',
+  'https://jsonplaceholder.typicode.com/posts/5', 
+  'https://jsonplaceholder.typicode.com/posts/6', 
+  'https://jsonplaceholder.typicode.com/posts/7', 
+  'https://jsonplaceholder.typicode.com/posts/8',
+  'https://jsonplaceholder.typicode.com/posts/9', 
+  'https://jsonplaceholder.typicode.com/posts/10'
 ]
 
 function loadDate (url) {
@@ -51,8 +82,7 @@ function limitLoad(urls, handler, limit) {
             console.error(err)
         }).then((res) => {
             // 用新的 Promise 替换掉最快改变状态的 Promise
-            promises[res] = handler(sequence[currentIndex]).then(
-                () => { return res });
+            promises[res] = handler(sequence[currentIndex]).then(() => { return res });
         })
     }, Promise.resolve()).then(() => {
         return Promise.all(promises)

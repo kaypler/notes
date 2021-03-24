@@ -22,6 +22,10 @@ webpack-dev-server主要包含了三个部分：
 7. Client获取到新的JS模块后，会更新modules tree并替换掉现有的模块； 
 8. 最后调用 module.hot.accept() 完成热更新；
 
+## webpack模块加载原理
+- **同步模块**：ES6 module 在底层实际上被 webpack 转换成了类似于 CommonJS 的语法。[参考](https://zhuanlan.zhihu.com/p/88335687)
+- **异步模块**：jsonp的方式。[参考](https://zhuanlan.zhihu.com/p/53044886)
+
 ## webpack的缺点
 1. 缓慢的服务器启动。当冷启动开发服务器时，基于打包的方式是在提供服务前去急切地抓取和构建你地整个应用。
 2. 使用地是node.js去实现。
