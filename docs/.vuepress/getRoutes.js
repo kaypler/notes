@@ -11,6 +11,12 @@ const options = {
       { title: 'LeeCode', path: '4-leecode' }
     ]
   },
+  'animation': {
+    title: '动画',
+    groups: [
+      { title: '基础', path: 'base' },
+    ]
+  },
   'interview': {
     title: '面试',
     groups: [

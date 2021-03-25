@@ -7,6 +7,8 @@ actionLink: /algorithm/
 features:
 - title: 算法
   details: 分类总结各种算法和题型，包括leecode的刷题经验
+- title: 动画
+  details: 记录一些动画的实现案例，仅供参考
 - title: 面试
   details: 收集前端面试相关的题目，分类总结各种知识点
 - title: 工具库
