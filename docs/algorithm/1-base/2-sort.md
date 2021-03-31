@@ -129,3 +129,113 @@ public class Quick {
   }
 }
 ```
+
+## 优先队列
+当一颗二叉树的每个结点都大于等于它的两个子节点时，它被称为**堆有序**。
+**二叉堆**是一组能够用堆有序的完全二叉树排序的元素，并在数组中按照层级存储（不使用数组的第一个位置）。
+
+```java
+public class MaxPQ<Key extends Comparable<Key>> {
+  private Key[] pq;               // 基于堆的完全二叉树
+  private int N = 0;              // 存储于pq[1..N]中，pq[0]没有使用
+
+  public MaxPQ(int maxN) {
+    pq = (Key[]) new Comparable[maxN+1];
+  }
+
+  public boolean isEmpty() { return N == 0; }
+  public int size() { return N; }
+
+  public void insert(Key v) {
+    pq[++N] = v;
+    swim(N);
+  }
+
+  public Key delMax() {
+    Key max = pq[1];      // 从根结点得到最大元素
+    exch(1, N--);         // 将其和最后一个结点交换
+    pq[N+1] = null;       // 防止越界
+    sink(1);              // 恢复堆的有序性
+    return max;
+  }
+
+  private boolean less(int i, int j) {
+    return pq[i].compareTo(pq[j]) < 0;
+  }
+  private boolean exch(int i, int j) {
+    Key t = pq[i];
+    pq[i] = pq[j];
+    pq[j] = t;
+  }
+  private boolean swim(int k) {
+    while (k > 1 && less(k/2, k)) {
+      exch(k/2, k);
+      k = k/2;
+    }
+  }
+  private boolean sink(int k) {
+    while (2*k <= N) {
+      int j = 2*k;
+      if (j < N && less(j, j+1)) j++;
+      if (!less(k, j)) break;
+      exch(k, j);
+      k = j;
+    }
+  }
+}
+```
+
+## 堆排序
+```java
+public class Heap {
+
+    // This class should not be instantiated.
+    private Heap() { }
+
+    public static void sort(Comparable[] pq) {
+        int n = pq.length;
+
+        // heapify phase
+        for (int k = n/2; k >= 1; k--)
+            sink(pq, k, n);
+
+        // sortdown phase
+        int k = n;
+        while (k > 1) {
+            exch(pq, 1, k--);
+            sink(pq, 1, k);
+        }
+    }
+
+    private static void sink(Comparable[] pq, int k, int n) {
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && less(pq, j, j+1)) j++;
+            if (!less(pq, k, j)) break;
+            exch(pq, k, j);
+            k = j;
+        }
+    }
+
+    private static boolean less(Comparable[] pq, int i, int j) {
+        return pq[i-1].compareTo(pq[j-1]) < 0;
+    }
+
+    private static void exch(Object[] pq, int i, int j) {
+        Object swap = pq[i-1];
+        pq[i-1] = pq[j-1];
+        pq[j-1] = swap;
+    }
+}
+```
+
+## 各种排序算法比较
+| 算法        | 是否稳定 | 是否为原地排序 |  时间复杂度 | 空间复杂度  | 备注                 |
+| :--------  | :------ | :----------  | :-------- | :-------- | :------------------- |
+| 选择排序    | 否       | 是           | N^2       | 1         | 取决于输入元素的排列顺序 |
+| 插入排序    | 是       | 是           | N~N^2     | 1         | 取决于输入元素的排列顺序 |
+| 希尔排序    | 否       | 是           |           | 1         | 取决于输入元素的排列顺序 |
+| 快速排序    | 否       | 是           | NlogN     | lgN       | 运行效率由概率提供保证   |
+| 三向快速排序 | 否      |  是           | N~NlogN   | lgN       | 运行效率由概率提供保证，同时也取决于输入元素的分布情况 |
+| 归并排序    | 是       | 否           | NlogN     | N         |                      |
+| 堆排序      | 否      |  是           | NlogN     | 1         |                      |
