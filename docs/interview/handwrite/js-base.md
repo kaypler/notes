@@ -1,6 +1,37 @@
-# apply,call,bind 实现
-call, apply, bind都是改变函数执行的上下文，说的直白点就是改变了函数this的指向。
-不同的是：call和apply改变了函数的this,并且执行了该函数，而bind是改变了函数的this，并返回一个函数，但不执行该函数。
+# javascript底层函数实现
+
+## new
+```js
+function create() {
+	// 创建一个空的对象
+  var obj = new Object(),
+	// 获得构造函数，arguments中去除第一个参数
+  Con = [].shift.call(arguments);
+	// 链接到原型，obj 可以访问到构造函数原型中的属性
+  obj.__proto__ = Con.prototype;
+	// 绑定 this 实现继承，obj 可以访问到构造函数中的属性
+  var ret = Con.apply(obj, arguments);
+	// 优先返回构造函数返回的对象
+	return ret instanceof Object ? ret : obj;
+};
+```
+
+## instanceof
+```js
+function new_instance_of(leftVaule, rightVaule) { 
+  let rightProto = rightVaule.prototype; // 取右表达式的 prototype 值
+  leftVaule = leftVaule.__proto__; // 取左表达式的__proto__值
+  while (true) {
+    if (leftVaule === null) {
+      return false;	
+    }
+    if (leftVaule === rightProto) {
+      return true;	
+    } 
+    leftVaule = leftVaule.__proto__ 
+  }
+}
+```
 
 ## apply
 ```js
@@ -36,7 +67,7 @@ Function.prototype.call = function(thisArg, args) {
 }
 ```
 
-# bind
+## bind
 bind的实现原理比call和apply要复杂一些，bind中需要考虑一些复杂的边界条件。bind后的函数会返回一个函数，而这个函数也可能被用来实例化:
 ```js
 Function.prototype.bind = function(thisArg) {

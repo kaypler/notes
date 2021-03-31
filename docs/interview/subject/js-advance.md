@@ -395,3 +395,10 @@ a函数传了一个参数5，那么this.x就被赋值为了5，函数a的this指
 ::: details 查看答案
 string
 :::
+
+### 2.Reflect.ownKeys、Object.getOwnPropertyNames、Object.keys的区别
+::: details 查看答案
+Reflect.ownKeys方法用于返回对象自身的所有属性，基本等同于Object.getOwnPropertyNames与Object.getOwnPropertySymbols之和。
+Object.getOwnPropertyNames返回对象自身的所有字符串属性。
+Object.keys返回对象自身所有可以枚举的字符串属性。
+:::

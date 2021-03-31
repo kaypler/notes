@@ -29,9 +29,10 @@ const options = {
   'tool': {
     title: '工具库',
     groups: [
-      { title: '基础', path: 'base' },
-      { title: '图片', path: 'picture' },
-      { title: '文件操作', path: 'file' }
+      { title: '基础', path: '1-base' },
+      { title: '图片', path: '2-picture' },
+      { title: '文件', path: '3-file' },
+      { title: '进阶', path: '4-advanced' }
     ]
   }
 }
