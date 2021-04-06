@@ -35,6 +35,9 @@ CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：�
 ### 怪异盒模型
 怪异盒模型下盒子的大小=width（content + border + padding） + margin
 
+## Shadow DOM
+可以将Shadow DOM视为“DOM中的DOM”。它是自己独立的DOM树，具有自己的元素和样式，与原始DOM完全隔离。
+
 ## async 与 defer
 当浏览器碰到 script 脚本的时候：
 1. `<script src="script.js"></script>` <br>

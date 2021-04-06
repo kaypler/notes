@@ -121,6 +121,14 @@ doFoo( obj.foo ); // "oops, global"
 2. 即使外部函数已经返回，闭包仍能访问外部函数定义的变量
 3. 闭包可以更新外部变量的值
 
+## 柯里化
+在数学和计算机科学中，柯里化是一种将使用多个参数的函数转换成一系列使用一个参数的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
+```js
+const curry = (fn, ...args1) => 
+  (...args2) => 
+    (arg => arg.length === fn.length ? fn(...arg) : curry(fn, ...arg))([...args1, ...args2]);
+```
+
 ## let 与 const
 
 ### let
