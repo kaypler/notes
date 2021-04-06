@@ -33,3 +33,23 @@ imgLoad('myLittleVader.jpg').then(function(response) {
   console.log(Error);
 });
 ```
+
+使用IntersectionObserver实现图片懒加载
+
+```js
+const observer = new IntersectionObserver(function(changes) {
+  changes.forEach(function(element, index) {
+    if (element.intersectionRatio > 0) {
+      observer.unobserve(element.target)
+      element.target.src = element.target.dataset.src
+    }
+  })
+})
+function initObserver() {
+  const listItem = document.querySelectorAll('img');
+  listItem.forEach(function(item) {
+    observer.observe(item);
+  })
+}
+initObserver();
+```
