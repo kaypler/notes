@@ -1,6 +1,6 @@
 # 链表
 
-## 25. K 个一组翻转链表
+## 25.K 个一组翻转链表
 `困难`给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
 k 是一个正整数，它的值小于或等于链表的长度。
 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。[详细](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
@@ -63,7 +63,7 @@ var reverseSub = function(left, right) {
 
 
 
-## 92. 反转链表 II
+## 92.反转链表 II
 `中等`给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，
 返回反转后的链表。[详细](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
 ```js
@@ -93,8 +93,40 @@ var reverseBetween = function(head, left, right) {
 };
 ```
 
+## 141.环形链表
+`简单`给定一个链表，判断链表中是否有环。[详细](https://leetcode-cn.com/problems/linked-list-cycle/)
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
+}
+```
 
-## 206. 反转链表
+## 206.反转链表
 `简单`反转一个单链表。[详细](https://leetcode-cn.com/problems/reverse-linked-list/)
 ```js
 /**
