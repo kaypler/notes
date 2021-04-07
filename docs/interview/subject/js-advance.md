@@ -143,6 +143,30 @@ if (typeof name == 'undefined') {
 Goodbye Jack； IIFE内的var穿透了块作用域，name被提升至if()之前，且此时name为undefined。
 :::
 
+### 5. 下面代码输出什么
+```js
+var name = 'window';
+function Foo() {
+  this.name = 'Foo';
+  this.a = () => {
+    console.log(this.name);
+  }
+}
+
+Foo.prototype = {
+  b: () => {
+    console.log(this.name);
+  }
+}
+
+var foo = new Foo();
+foo.a();
+foo.b();
+```
+::: details 查看答案
+Foo window。对象不构成单独的作用域，导致this指向window
+:::
+
 ## 对象
 ### 1. 下面代码输出什么
 ```js
