@@ -2,30 +2,40 @@
 
 ## 深拷贝
 ```js
-function cloneDeep(obj) {
-  // 当null NaN undefined number string等基本数据类型时直接返回
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
+function deepClone(obj) {
+  const _toString = Object.prototype.toString
+
+  // null, undefined, non-object, function
+  if (!obj || typeof obj !== 'object') {
+    return obj
   }
-  // Date类型
-  if (obj instanceof Date) {
-    const copy = new Date();
-    copy.setTime(obj.getTime());
-    return copy;
+
+  // DOM Node
+  if (obj.nodeType && 'cloneNode' in obj) {
+    return obj.cloneNode(true)
   }
-  // 正则类型
-  if (obj.instanceof RegExp) {
-    const Constructor = obj.constructor;
-    return new Constructor(obj);
+
+  // Date
+  if (_toString.call(obj) === '[object Date]') {
+    return new Date(obj.getTime())
   }
-  if (obj instanceof Array || obj instanceof Object) {
-    const copyObj = Array.isArray(obj) ? [] : {};
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        copyObj[key] = cloneDeep(obj[key]);
-      }
-    }
-    return copyObj;
+
+  // RegExp
+  if (_toString.call(obj) === '[object RegExp]') {
+    const flags = []
+    if (obj.global) { flags.push('g') }
+    if (obj.multiline) { flags.push('m') }
+    if (obj.ignoreCase) { flags.push('i') }
+
+    return new RegExp(obj.source, flags.join(''))
   }
+
+  const result = Array.isArray(obj) ? [] : obj.constructor ? new obj.constructor() : {}
+
+  for (const key in obj) {
+    result[key] = deepClone(obj[key])
+  }
+
+  return result
 }
 ```
