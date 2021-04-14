@@ -1,4 +1,6 @@
 # LRU 缓存机制
+LRU是Least Recently Used的缩写，即最近最少使用，选择最近最久未使用的缓存予以淘汰。
+
 ```java
 public class LRUCache {
     class DLinkedNode {

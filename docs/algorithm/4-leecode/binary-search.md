@@ -1,5 +1,28 @@
 # 二分查找
 
+## 69.x 的平方根
+`中等`实现 int sqrt(int x) 函数。
+计算并返回 x 的平方根，其中 x 是非负整数。
+由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+[详细](https://leetcode-cn.com/problems/sqrtx/)
+```java
+class Solution {
+    public int mySqrt(int x) {
+        int l = 0, r = x, ans = -1;
+        while (l <= r) {
+            int mid = l + (r - l)/2;
+            if ((long)mid*mid <= x) {
+                ans = mid;
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return ans;
+    }
+}
+```
+
 ## 81.搜索旋转排序数组 II
 `中等`已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。
 在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转 ，
