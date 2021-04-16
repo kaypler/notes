@@ -127,6 +127,17 @@ new PerformanceObserver((entryList, observer) => {
 }).observe({entryTypes: ['element']})
 ```
 
+## DCL
+Dom Content Loaded，整个dom加载完毕
+**统计逻辑**
+```js
+const {
+    fetchStart, // 开始访问
+    domContentLoadedEventEnd, // dom加载完毕 + domcontentloaded完成的事件的事件 $(function(){})
+} = performance.timing;
+let DCL = domContentLoadedEventEnd - fetchStart; // DOM 整个加载完毕
+```
+
 ## LCP
 Largest Contentful Paint，翻译为最大内容渲染，在viewport中最大的页面元素加载的时间。
 
