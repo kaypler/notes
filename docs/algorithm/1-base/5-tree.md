@@ -559,3 +559,146 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
   }
 }
 ```
+
+## 二叉树的遍历
+
+### 前序遍历
+前序遍历：根结点 ---> 左子树 ---> 右子树
+
+```java
+// 递归实现
+public void qianxu(node t)
+{
+	if (t != null) {
+		System.out.print(t.value + " ");// 当前节点
+		qianxu(t.left);
+		qianxu(t.right);
+	}
+}
+
+// 非递归实现
+public void qianxu2(node t)
+{
+	Stack<node> q1 = new Stack<node>();
+	if (t == null)
+		return;
+	if (t != null) {
+		q1.push(t);
+	}
+	while (!q1.empty()) {
+		node t1 = q1.pop();
+		if (t1.right != null) {
+			q1.push(t1.right);
+		}
+		if (t1.left != null) {
+			q1.push(t1.left);
+		}
+		System.out.print(t1.value + " ");
+	}
+}
+```
+
+### 中序遍历
+中序遍历：左子树---> 根结点 ---> 右子树，
+二叉搜索树「中序遍历」得到的值构成的序列一定是升序的。
+
+```java
+// 递归实现
+public void zhongxu(node t)// 中序遍历 
+{
+	if (t != null) {
+		zhongxu(t.left);
+		System.out.print(t.value + " ");// 访问完左节点访问当前节点
+		zhongxu(t.right);
+	}
+}
+
+// 非递归实现
+public boolean zhongxu(TreeNode root) {
+    Deque<TreeNode> stack = new LinkedList<TreeNode>();
+
+    while (!stack.isEmpty() || root != null) {
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
+        }
+        root = stack.pop();
+        System.out.println(root.val);
+        root = root.right;
+    }
+    return true;
+}
+```
+
+### 后序遍历
+左子树 ---> 右子树 ---> 根结点
+
+```java
+// 递归实现
+public void houxu(node t)
+{
+	if (t != null) {
+		houxu(t.left);
+		houxu(t.right);
+		System.out.print(t.value + " "); 
+	}
+}
+
+// 非递归实现
+public void houxu3(node t)
+{
+	Stack<node> q1 = new Stack();
+	Stack<node> q2 = new Stack();
+	if (t == null)
+		return;
+	if (t != null) {
+		q1.push(t);
+	}
+	while (!q1.isEmpty()) {
+		node t1 = q1.pop();
+		q2.push(t1);
+		if (t1.left != null) {
+			q1.push(t1.left);
+		}
+		if (t1.right != null) {
+			q1.push(t1.right);
+		}
+	}
+	while (!q2.isEmpty()) {
+		node t1 = q2.pop();
+		System.out.print(t1.value + " ");
+	}
+}
+```
+
+### 层序遍历
+即逐层地，从左到右访问所有节点
+
+```java
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> ret = new ArrayList<List<Integer>>();
+    if (root == null) {
+        return ret;
+    }
+
+    Queue<TreeNode> queue = new LinkedList<TreeNode>();
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+        List<Integer> level = new ArrayList<Integer>();
+        int currentLevelSize = queue.size();
+        for (int i = 1; i <= currentLevelSize; ++i) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+        ret.add(level);
+    }
+    
+    return ret;
+}
+```
