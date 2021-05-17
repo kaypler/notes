@@ -20,7 +20,7 @@ JavaScript 调用 Native的方式主要有两种：
 React Native 是一套 UI 框架，默认情况下 React Native 会在 Activity 下加载 JS 文件，然后运行在 JavaScriptCore 中解析 Bundle 文件布局，最终堆叠出一系列的原生控件进行渲染。
 
 简单来说就是 通过写 JS 代码配置页面布局，然后 React Native 最终会解析渲染成原生控件，如`<View>`标签对应 ViewGroup/UIView ，`<ScrollView>`标签对应 ScrollView/UIScrollView ，
-<Image> 标签对应 ImageView/UIImageView 等。
+`<Image>` 标签对应 ImageView/UIImageView 等。
 
 
 ## Flutter
