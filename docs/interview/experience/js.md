@@ -208,7 +208,9 @@ if (true) {
 - CommonJS模块以服务器第一原则发展，选择同步加载，它的模块无需包装(unwrapped modules)。
 - UMD先判断是否支持Node.js的模块（exports）是否存在，存在则使用Node.js模块模式。再判断是否支持AMD（define是否存在），存在则使用AMD方式加载模块。
 
-[更多](https://juejin.cn/post/6844903663404580878)
+### 参考
+- [AMD, CMD, CommonJS，ES Module，UMD](https://juejin.cn/post/6844903663404580878)
+- [图说 ES Modules](https://segmentfault.com/a/1190000014318751)
 
 ## V8的垃圾回收策略
 V8的垃圾回收策略主要是基于**分代式垃圾回收机制**，其根据对象的存活时间将内存的垃圾回收进行不同的分代，然后对不同的分代采用不同的垃圾回收算法。
@@ -272,4 +274,5 @@ Scavenge算法是一种典型的牺牲空间换取时间的算法。在Scavenge�
 4. 清除DOM引用
 5. 使用弱引用
 
-[参考](https://juejin.cn/post/6844904016325902344)
+### 参考
+- [一文搞懂V8引擎的垃圾回收](https://juejin.cn/post/6844904016325902344)
