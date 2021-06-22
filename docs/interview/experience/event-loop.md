@@ -133,5 +133,5 @@ console.log('12');
 整段代码，共进行了两次事件循环，完整的输出 1 2 4 10 12 5 3 11 6 8 7 9
 
 ## 参考
-- [深入解析 EventLoop 和浏览器渲染、帧动画、空闲回调的关系](https://mp.weixin.qq.com/s/l9pGe7-xY08DeaFMnk0xuA)
-
+- [用一道大厂面试题带你搞懂事件循环机制](https://www.imooc.com/article/details/id/291497)
+- [JavaScript 运行机制详解：再谈Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
