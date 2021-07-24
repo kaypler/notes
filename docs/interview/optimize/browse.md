@@ -4,10 +4,11 @@
 ![An image](./images/browse-1.png)
 
 - **浏览器进程**：负责界面显示、用户交互、子进程管理，提供存储等。
-- **渲染进程**：每个页卡都有单独的渲染进程，核心用于渲染页面。
-- **网络进程**：主要处理网络资源加载（html、css、js等）
-- **GPU进程**：3d绘制，提高性能
-- **插件进程**：chrome中安装的一些插件
+- **渲染进程**：每个页卡都有单独的渲染进程，核心用于渲染页面，排版引擎 Blink 和 Javascript 引擎 V8 都是运行在该进程中。
+    出于安全考虑，渲染进程都是运行在沙箱模式下。
+- **网络进程**：主要处理网络资源加载（html、css、js等）。
+- **GPU进程**：3d绘制，提高性能。
+- **插件进程**：主要负责插件的运行。
 
 ## url请求过程
 
@@ -127,7 +128,7 @@ new PerformanceObserver((entryList, observer) => {
 }).observe({entryTypes: ['element']})
 ```
 
-## DCL
+### DCL
 Dom Content Loaded，整个dom加载完毕
 **统计逻辑**
 ```js
@@ -138,7 +139,7 @@ const {
 let DCL = domContentLoadedEventEnd - fetchStart; // DOM 整个加载完毕
 ```
 
-## LCP
+### LCP
 Largest Contentful Paint，翻译为最大内容渲染，在viewport中最大的页面元素加载的时间。
 
 **统计逻辑**
