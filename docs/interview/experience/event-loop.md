@@ -3,12 +3,13 @@ javascript是一门单线程语言，虽然HTML5提出了Web-works这样的多�
 >什么是H5 Web Works？<br>
 >就是将一些大计算量的代码交由web Worker运行而不冻结用户界面，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质
 
-既然js是单线程的，就是同一时间只能做一件事情。那么问题来了，我们访问一个页面，这个页面的初始化代码运行时间很长，比如有很多图片、视频、外部资源等等，难道我们也要一直在那等着吗？答案当然是: "不能"。
+- 如果要在单线程执行过程中接收并处理新的任务，就需要引入循环事件系统。
+- 如果要接收其他线程发送过来的任务，就需要引入消息队列。
+- 如果其他进程想要发送任务给页面主线程，那么先通过 IPC 把任务发送给渲染进程的 IO 线程，IO 线程再把任务发送给页面主线程。
+- 消息队列机制并不是太灵活，为了适应效率和实时性，引入了微任务。
 
-所以就出现了两类任务：
-- 同步任务
-- 异步任务
-  
+
+## 同步任务和异步任务  
 ![An image](./images/event-loop-1.png)
 1. 同步和异步任务分别进入不同的 '‘场所'’ 执行。所有同步任务都在主线程上执行，形成一个执行栈；而异步任务进入`Event Table`并注册回调函数
 2. 当这个异步任务有了运行结果，`Event Table`会将这个回调函数移入`Event Queue`，进入等待状态
@@ -19,8 +20,19 @@ javascript是一门单线程语言，虽然HTML5提出了Web-works这样的多�
 >js引擎存在monitoring process进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去Event Queue那里检查是否有等待被调用的函数。
 
 除了广义的同步任务和异步任务，我们对任务有更精细的定义：
-- **macro-task(宏任务)**：包括整体代码script、setTimeout、setInterval、I/O、UI交互事件，可以理解是每次执行栈执行的代码就是一个宏任务；
-- **micro-task(微任务)**：Promise，process.nextTick，且process.nextTick优先级大于promise.then。可以理解是在当前 task 执行结束后立即执行的任务
+- **macro-task(宏任务)**：包括整体代码script、setTimeout、setInterval、I/O、UI交互事件、网络请求，可以理解是每次执行栈执行的代码就是一个宏任务；
+- **micro-task(微任务)**：Promise，process.nextTick，且process.nextTick优先级大于promise.then。每个宏任务都关联了一个微任务队列，当前宏任务执行完会立刻执行并清空微任务队列。
+
+### setTimeout的一些问题
+1. 如果当前任务执行时间过久，会影响定时器任务的执行
+2. 如果 setTimeout 存在嵌套调用，那么系统会设置最短时间间隔为 4 毫秒
+3. 未激活的页面，setTimeout 执行最小间隔是 1000 毫秒
+4. 延时执行时间有最大值，Chrome、Safari、Firefox 都是以 32 个 bit 来存储延时值的，32bit 最大只能存放的数字是 2147483647 毫秒
+5. 要注意 setTimeout 设置的回调函数中的 this 绑定问题
+
+::: tip requestAnimationFrame 和 setTimeout 的区别
+使用 requestAnimationFrame 不需要设置具体的时间，由系统来决定回调函数的执行时间，requestAnimationFrame 里面的回调函数是在页面刷新之前执行，它跟着屏幕的刷新频率走，保证每个刷新间隔只执行一次，内如果页面未激活的话，requestAnimationFrame 也会停止渲染，这样既可以保证页面的流畅性，又能节省主线程执行函数的开销。
+:::
 
 ## 流程
 1. 从任务队列中取出一个宏任务并执行。
