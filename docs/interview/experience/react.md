@@ -24,6 +24,10 @@ setTimeout 函数包裹的 `setState` 不在 React 执行的上下文里，因�
 ## useEffect 与 useLayoutEffect 的区别
 - useEffect 不会阻塞浏览器渲染，useLayoutEffect 会阻止浏览器渲染。
 - useEffect 会在浏览器渲染结束后执行，useLayoutEffect 则是在 dom 更新完成后浏览器绘制前执行。
+  
+## useEffect 与 useRef 的区别
+- useState 的值在每个 render 中都是独立存在的。而 useRef.current 则更像是相对于 render 函数的一个全局变量，每次他会保持 render 的最新状态。
+- useState 值的更新会触发组件重新渲染，而 useRef.current 不会触发重渲染。
 
 ## React17 与 React16 合成事件的差异
 React 合成事件会把 `SyntheticEvent` 实例将被传递给你的事件处理函数，它是浏览器的原生事件的跨浏览器包装器。
