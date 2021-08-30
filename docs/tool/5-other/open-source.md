@@ -14,6 +14,11 @@ Lightweight Mobile UI Components built on Vue <br>
 ⏰ Day.js 2KB immutable date-time library alternative to Moment.js with the same modern API<br>
 [github](https://github.com/iamkun/dayjs)  [在线文档](day.js.org)
 
+## 可视化
+### 1.fabric.js
+Javascript Canvas Library, SVG-to-Canvas (& canvas-to-SVG) Parser<br>
+[github](https://github.com/fabricjs/fabric.js)  [在线文档](http://fabricjs.com/)
+
 ## 低代码
 ### 1.form-generator
 ✨ Element UI表单设计及代码生成器 <br>
