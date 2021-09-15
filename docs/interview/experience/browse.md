@@ -3,8 +3,6 @@
 ## DOM
 文档对象模型（Document Object Model，**DOM**）是表示和操作HTML和XML文档内容的基础API。
 当网页被加载时，浏览器会根据DOM模型，将结构化文档（比如HTML和XML）解析成一系列的节点，再由这些节点组成一个树状结构（DOM Tree）。
-## Shadow DOM
-可以将Shadow DOM视为“DOM中的DOM”。它是自己独立的DOM树，具有自己的元素和样式，与原始DOM完全隔离。
 
 节点有7种类型：
 - **Document**：整个文档树的顶层节点，nodeType = 9
@@ -14,6 +12,10 @@
 - **Text**：标签之间或标签包含的文本，nodeType = 3
 - **Comment**：HTML或XML的注释，nodeType = 8
 - **DocumentFragment**：文档的片段，nodeType = 11
+
+## Shadow DOM
+可以将Shadow DOM视为“DOM中的DOM”。它是自己独立的DOM树，具有自己的元素和样式，与原始DOM完全隔离。
+
 
 ## async 与 defer
 当浏览器碰到 script 脚本的时候：
