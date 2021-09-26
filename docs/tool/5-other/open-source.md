@@ -28,19 +28,35 @@ Fully customisable & accessible vector icons <br>
 Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist <br>
 [github](https://github.com/leizongmin/js-xss)  [在线文档](https://jsxss.com/zh/index.html)
 
-### 4. shiki
+### 4. highlight.js
+JavaScript syntax highlighter with language auto-detection and zero dependencies. <br>
+[github](https://github.com/highlightjs/highlight.js)  [在线预览](https://highlightjs.org/)
+
+### 5. shiki
 A beautiful Syntax Highlighter. <br>
 [github](https://github.com/shikijs/shiki)  [在线文档](https://shiki.matsu.io/)
 
+### 6. he
+A robust HTML entity encoder/decoder written in JavaScript. <br>
+[github](https://github.com/mathiasbynens/he)
+
+### 7. htmlparser2
+The fast & forgiving HTML and XML parser <br>
+[github](https://github.com/fb55/htmlparser2)  [在线文档](https://feedic.com/htmlparser2/)
+
 ## Markdown
 
-### 1. turndown
+### 1. stackedit
+In-browser Markdown editor <br>
+[github](https://github.com/benweet/stackedit)  [在线预览](https://stackedit.io/)
+
+### 2. turndown
 🛏 An HTML to Markdown converter written in JavaScript <br>
 [github](https://github.com/mixmark-io/turndown)  [在线预览](https://mixmark-io.github.io/turndown/)
 
-### 2. stackedit
-In-browser Markdown editor <br>
-[github](https://github.com/benweet/stackedit)  [在线预览](https://stackedit.io/)
+### 3. markdown-it
+Markdown parser, done right. 100% CommonMark support, extensions, syntax plugins & high speed <br>
+[github](https://github.com/markdown-it/markdown-it)  [在线文档](https://markdown-it.github.io/markdown-it/)
 
 ## 可视化
 
