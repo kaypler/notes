@@ -13,13 +13,23 @@
 2. **跨域资源共享(CORS)**，使用该机制可以进行跨域访问控制，从而使跨域数据传输得以安全进行。
 3. 跨文档消息机制，可以通过 window.postMessage 的 JavaScript 接口来和不同源的 DOM 进行通信。
 
+
 ## CSP
-**内容安全策略(CSP)**的核心思想是让服务器决定浏览器能够加载哪些资源，让服务器决定浏览器是否能够执行内联 JavaScript 代码。
+**内容安全策略**的核心思想是让服务器决定浏览器能够加载哪些资源，让服务器决定浏览器是否能够执行内联 JavaScript 代码。
 它是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。
 
 为使CSP可用, 你需要配置你的网络服务器返回 `Content-Security-Policy` 的 HTTP 头部(有时你会看到一些关于X-Content-Security-Policy头部的提法, 那是旧版本，你无须再如此指定它)。
 除此之外,  `<meta>` 元素也可以被用来配置该策略, 例如
->\<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
+
+```html
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src *; media-src media1.com media2.com; script-src *.userscripts.example.com;">
+```
+
+在这个示例中，各种内容默认仅允许从文档所在的源获取, 但存在如下例外:
+- 图片可以从任何地方加载(注意 "*" 通配符)。
+- 多媒体文件仅允许从 media1.com 和 media2.com 加载(不允许从这些站点的子域名)。
+- 可运行脚本仅允许来自于userscripts.example.com及其子域名。
+
 
 ## 跨域问题
 协议、域名、端口有一项不同即构成跨域，二级域名不同也会构成跨域。
@@ -41,17 +51,18 @@
 3. 图片已经通过img标签加载过，浏览器默认会缓存下来，下次使用js方式再去请求，直接返回缓存的图片，如果缓存中的图片不是通过 CORS 请求或者响应头中不存在 Access-Control-Allow-Origin，都会导致报错。
 :::
 
+
 ## SameSite
 `eTLD + 1` 相同的站点可称为同站，eTLD 表示有效顶级域名：
 - eTLD：com.cn
 - eTLD+1：example.com.cn
 
+
 ## Cookie
 Cookie，有时也用其复数形式 Cookies，指网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。
 定义于 RFC2109 和 2965 中的都已废弃，最新取代的规范是 [RFC6265](https://datatracker.ietf.org/doc/html/rfc6265)。
 
-在浏览网站的过程中，若是一个网站设置了Cookie，那么在浏览器进程的生命周期内，即使浏览器
-新打开了Tab页，Cookie 也都是有效的， Cookie保存在浏览器进程的内存空间中。
+在浏览网站的过程中，若是一个网站设置了Cookie，那么在浏览器进程的生命周期内，即使浏览器新打开了Tab页，Cookie 也都是有效的， Cookie保存在浏览器进程的内存空间中。
 
 与当前站点的域相匹配的 Cookie，即浏览器地址栏中显示的内容，称为第一方 cookie。类似地，来自当前站点以外的域的 Cookie 被称为第三方 Cookie。
 当访问第三方域时，浏览器会自动带上第三方的 Cookie，这也为 CSRF 攻击提供了机会，可通过 Cookie 的 SameSite 属性限制。
@@ -61,6 +72,16 @@ Cookie，有时也用其复数形式 Cookies，指网站为了辨别用户身份
 - **Strict**：Cookies只会在第一方上下文中发送，不会与第三方网站发起的请求一起发送。
 - **None**：Cookie将在所有上下文中发送，即允许跨域发送。
 :::
+
+### Cookie的一些属性
+
+| 属性名      | 属性说明   |
+| :--------- | :-------  |
+| maxAge     | Cookie有效期，单位秒。如果为整数，则该Cookie在maxAge秒后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为-1 |
+| Expires    | Cookie的失效时间，如果Cookie没有设置过期时间，那么 cookie 的生命周期只是在当前的会话中，关闭浏览器意味着这次会话的结束，此时 cookie 随之失效， 现在已经被maxAge属性所取代 | 
+| secure     | 它是一个布尔值，指定在网络上如何传输Cookie，默认为false，通过一个普通的http连接传输，标记为true的Cookie只应通过被 HTTPS 协议加密过的请求发送给服务端 | 
+| path       | Cookie的使用路径,path标识指定了主机下的哪些路径可以接受 Cookie（该 URL 路径必须存在于请求 URL 中）, 例如：如果设置为“/sessionWeb/”，则只有contextPath为“/sessionWeb”的程序可以访问该Cookie，如果设置为“/”，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为“/” |
+| domain     | domain标识指定了哪些主机可以访问该Cookie的域名。如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.” |
 
 
 ## XSS
@@ -111,6 +132,7 @@ XSS的防御
 | '          | \&#x27;   | 
 | /          | \&#x2F;   | 
 
+
 ## CSRF
 CSRF的全名是Cross Site Request Forgery，翻译成中文就是跨站点请求伪造。
 攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，
@@ -131,6 +153,7 @@ CSRF的防御：
     因此标准委员会又制定了 Origin 属性，在一些重要的场合，比如通过 XMLHttpRequest、Fecth 发起跨站请求或者通过 Post 方法发送请求时，都会带上 Origin 属性
 - CSRF Token
 
+
 ## ClickJacking
 点击劫持是一种视觉上的欺骗手段。攻击者使用一个透明的、不可见的iframe，覆盖在一个网页上，然后诱使用户在该网页上进行操作，
 此时用户将在不知情的情况下点击透明的iframe页面。
@@ -138,6 +161,7 @@ CSRF的防御：
 
 ## DDOS
 DDOS又称分布式拒绝服务，全程是Distributed Denial of Service。DDOS本是利用合理的请求造成资源过载，导致服务不可用。
+
 
 ## 运营商劫持
 一般情况下，运营商劫持指http劫持
