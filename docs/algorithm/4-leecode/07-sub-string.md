@@ -1,4 +1,4 @@
-# 最长公共子串和子序列
+# 字符串子串问题
 最长公共子串（Longest Common Substring）与最长公共子序列（Longest Common Subsequence）的区别： 
 子串要求在原字符串中是连续的，而子序列则只需保持相对顺序一致，并不要求连续。
 例如X = {a, Q, 1, 1}; Y = {a, 1, 1, d, f}那么，{a, 1, 1}是X和Y的最长公共子序列，但不是它们的最长公共字串。
@@ -102,3 +102,44 @@ var minInsertions = function(s) {
     return n - dp[n][n];
 };
 ```
+## 其他子串
+
+### 187. 重复的DNA序列
+`中等`所有 DNA 都由一系列缩写为 'A'，'C'，'G' 和 'T' 的核苷酸组成，例如："ACGAATTCCG"。在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。
+
+编写一个函数来找出所有目标子串，目标子串的长度为 10，且在 DNA 字符串 s 中出现次数超过一次。
+[详细](https://leetcode-cn.com/problems/repeated-dna-sequences/)
+
+```java
+class Solution {
+    static final int L = 10;
+    Map<Character, Integer> bin = new HashMap<Character, Integer>() {{
+        put('A', 0);
+        put('C', 1);
+        put('G', 2);
+        put('T', 3);
+    }};
+
+    public List<String> findRepeatedDnaSequences(String s) {
+        List<String> ans = new ArrayList<String>();
+        int n = s.length();
+        if (n <= L) {
+            return ans;
+        }
+        int x = 0;
+        for (int i = 0; i < L - 1;++i) {
+            x = (x << 2) | bin.get(s.charAt(i));
+        }
+        Map<Integer, Integer> cnt = new HashMap<Integer, Integer>();
+        for (int i = 0; i <= n - L; ++i) {
+            x = ((x << 2) | bin.get(s.charAt(i + L -1))) & ((1 << (L * 2)) - 1);
+            cnt.put(x, cnt.getOrDefault(x, 0) + 1);
+            if (cnt.get(x) == 2) {
+                ans.add(s.substring(i, i + L));
+            }
+        }
+        return ans;
+    }
+}
+```
+
