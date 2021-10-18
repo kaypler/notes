@@ -17,6 +17,13 @@ const options = {
       { title: '基础', path: 'base' },
     ]
   },
+  'article': {
+    title: '文章',
+    groups: [
+      { title: 'react', path: 'react' },
+      { title: 'vscode', path: 'vscode' },
+    ]
+  },
   'interview': {
     title: '面试',
     groups: [
