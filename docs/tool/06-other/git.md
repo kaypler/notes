@@ -1,5 +1,24 @@
 # Git 备忘录
 
+## 多账号配置
+~/.ssh/config 文件添加以下内容：
+
+```
+Host github.com
+  HostName github.com
+  User ***.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/***
+
+Host gitlab.com
+  HostName gitlab.com
+  User ***.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/***
+```
+
 ## 撤销修改
 1. 撤销工作区：`git checkout --filename` 或 `git checkout .`
 2. 撤销暂存区: `git reset HEAD filename` 或 `git reset HEAD`·
