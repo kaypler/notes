@@ -19,6 +19,13 @@ Host gitlab.com
   IdentityFile ~/.ssh/***
 ```
 
+## 分支管理
+1. 查看本地分支：`git branch`
+2. 查看所有分支：`git branch -a | grep xxx`
+3. 查看本地分支和远程分支关联信息：`git branch -vv`
+4. 拉取远程分支：`git checkout -b xxx origin/xxx`
+5. 本地分支与远程分支关联：`git branch --set-upstream-to=origin/xxx xxx`
+
 ## 撤销修改
 1. 撤销工作区：`git checkout --filename` 或 `git checkout .`
 2. 撤销暂存区: `git reset HEAD filename` 或 `git reset HEAD`·
