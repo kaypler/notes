@@ -36,11 +36,12 @@ const options = {
   'tool': {
     title: '工具库',
     groups: [
-      { title: '基础', path: '1-base' },
-      { title: '图片', path: '2-picture' },
-      { title: '文件', path: '3-file' },
-      { title: '进阶', path: '4-advanced' },
-      { title: '其它', path: '5-other' },
+      { title: '基础', path: '01-base' },
+      { title: '图片', path: '02-picture' },
+      { title: 'CSS', path: '03-css' },
+      { title: '文件', path: '04-file' },
+      { title: '进阶', path: '05-advanced' },
+      { title: '其它', path: '06-other' },
     ]
   }
 }
