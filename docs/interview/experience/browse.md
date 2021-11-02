@@ -16,6 +16,42 @@
 ## Shadow DOM
 可以将Shadow DOM视为“DOM中的DOM”。它是自己独立的DOM树，具有自己的元素和样式，与原始DOM完全隔离。
 
+## CSS 加载问题
+1. css加载不会阻塞DOM树的解析
+2. css加载会阻塞DOM树的渲染
+3. css加载会阻塞后面js语句的执行
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>css阻塞</title>
+    <meta charset="UTF-8">
+    <style>
+    h1 {
+        color: red !important
+    }
+    </style>
+    <script>
+    function h() {
+        console.log(document.querySelectorAll('h1'));
+    }
+    setTimeout(h, 0);
+    console.log('before css');
+    var startTime = new Date();
+    </script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Hello World!! color:red</h1>
+    <script>
+    var endTime = new Date();
+    console.log('after css');
+    console.log('耗时' + (endTime - startTime) + 'ms');
+    </script>
+</body>
+</html>
+```
 
 ## async 与 defer
 当浏览器碰到 script 脚本的时候：
