@@ -53,6 +53,10 @@
 </html>
 ```
 
+## DOMContentLoaded 与 load
+- **DOMContentLoaded**事件会在页面上DOM完全加载并解析完毕之后触发，不会等待CSS、图片、子框架加载完成。chrome 浏览器 network 面板时间轴上用一条蓝色竖线标记。
+- **load**事件会在页面上所有DOM、CSS、JS、图片完全加载完毕之后触发。chrome 浏览器 network 面板时间轴上用一条红色竖线标记。
+
 ## async 与 defer
 当浏览器碰到 script 脚本的时候：
 1. `<script src="script.js"></script>` <br>

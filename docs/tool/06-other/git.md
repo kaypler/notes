@@ -25,6 +25,7 @@ Host gitlab.com
 3. 查看本地分支和远程分支关联信息：`git branch -vv`
 4. 拉取远程分支：`git checkout -b xxx origin/xxx`
 5. 本地分支与远程分支关联：`git branch --set-upstream-to=origin/xxx xxx`
+6. 重命名分支：`git branch -m oldBranchName newBranchName`
 
 ## 撤销修改
 1. 撤销工作区：`git checkout --filename` 或 `git checkout .`
