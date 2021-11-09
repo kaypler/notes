@@ -75,19 +75,59 @@ Javascript脚本会阻塞DOM的解析，CSS则不会
 ## 性能指标
 ![An image](./images/browse-performance.png)
 
-### TTFB
-time to first byte，翻译为首字节时间，是指从请求到数据返回第一个字节所消耗的时间。
+### CLS
+Cumulative Layout Shift（累积布局偏移）量化了在页面加载期间，视口中有多少元素移动。
 
+```js
+let clsValue = 0;
+let clsEntries = [];
+
+let sessionValue = 0;
+let sessionEntries = [];
+
+new PerformanceObserver((entryList) => {
+  for (const entry of entryList.getEntries()) {
+    // 只将不带有最近用户输入标志的布局偏移计算在内。
+    if (!entry.hadRecentInput) {
+      const firstSessionEntry = sessionEntries[0];
+      const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
+
+      // 如果条目与上一条目的相隔时间小于 1 秒且
+      // 与会话中第一个条目的相隔时间小于 5 秒，那么将条目
+      // 包含在当前会话中。否则，开始一个新会话。
+      if (sessionValue &&
+          entry.startTime - lastSessionEntry.startTime < 1000 &&
+          entry.startTime - firstSessionEntry.startTime < 5000) {
+        sessionValue += entry.value;
+        sessionEntries.push(entry);
+      } else {
+        sessionValue = entry.value;
+        sessionEntries = [entry];
+      }
+
+      // 如果当前会话值大于当前 CLS 值，
+      // 那么更新 CLS 及其相关条目。
+      if (sessionValue > clsValue) {
+        clsValue = sessionValue;
+        clsEntries = sessionEntries;
+
+        // 将更新值（及其条目）记录在控制台中。
+        console.log('CLS:', clsValue, clsEntries)
+      }
+    }
+  }
+}).observe({type: 'layout-shift', buffered: true});
+```
+
+### DCL
+Dom Content Loaded，整个dom加载完毕
 **统计逻辑**
 ```js
-function getTTFB() {
-  const {
-    requestStart,
-    responseStart
-  } = performance.timing;
-
-  return responseStart - requestStart;
-}
+const {
+    fetchStart, // 开始访问
+    domContentLoadedEventEnd, // dom加载完毕 + domcontentloaded完成的事件的事件 $(function(){})
+} = performance.timing;
+let DCL = domContentLoadedEventEnd - fetchStart; // DOM 整个加载完毕
 ```
 
 ### FP
@@ -138,42 +178,14 @@ FP是当浏览器开始绘制内容到屏幕上的时候，只要在视觉上开
 FP和FCP可能是相同的时间，也可能是先FP后FCP。
 :::
 
-### FMP
-FMP，全称 First Meaningful Paint，翻译为首次有意义的绘制，是页面主要内容出现在屏幕上的时间, 这是用户感知加载体验的主要指标。
-目前尚无标准化的定义, 因为很难以通用的方式去确定各种类型页面的关键内容。
+### FCI
+FCI，全称 First CPU Idle，翻译为首次CPU空闲时间代表着一个网页已经满足了最小程度的与用户发生交互行为的时刻。
+当我们打开一个网页，我们并不需要等到一个网页完全加载好了，每一个元素都已经完成了渲染，然后再去与网页进行交互行为。
+网页满足了我们基本的交互的时间点是衡量网页性能的一个重要指标。
 
 **统计逻辑**
-```js
-new PerformanceObserver((entryList, observer) => {
-  entryList.getEntries()[0];
-
-  observer.disconnect();
-}).observe({entryTypes: ['element']})
-```
-
-### DCL
-Dom Content Loaded，整个dom加载完毕
-**统计逻辑**
-```js
-const {
-    fetchStart, // 开始访问
-    domContentLoadedEventEnd, // dom加载完毕 + domcontentloaded完成的事件的事件 $(function(){})
-} = performance.timing;
-let DCL = domContentLoadedEventEnd - fetchStart; // DOM 整个加载完毕
-```
-
-### LCP
-Largest Contentful Paint，翻译为最大内容渲染，在viewport中最大的页面元素加载的时间。
-
-**统计逻辑**
-```js
-new PerformanceObserver((entryList, observer) => {
-  const entries = entryList.getEntries();
-  console.log(entries[entries.length-1]);
-
-  observer.disconnect();
-}).observe({entryTypes: ['largest-contentful-paint']})
-```
+FCI为在FMP之后，首次在一定窗口时间内没有长任务发生的那一时刻，并且如果这个时间点早于`DOMContentLoaded`时间，
+那么FCI的时间为`DOMContentLoaded`时间，窗口时间的计算函数可以根据`Lighthouse`提供的计算公式 `N = f(t) = 4 * e^(-0.045 * t) + 1` 进行自定义设计
 
 ### FID
 FID，全称 First Input Delay，翻译为首次输入延迟，是测量用户首次与您的站点交互时的时间
@@ -223,6 +235,70 @@ function onIdleCallback(eventTime, e) {
     ['click','touch','keydown'].forEach(eventType => {
         window.removeEventListener(eventType, eventHandle);
     });
+}
+```
+
+### FMP
+FMP，全称 First Meaningful Paint，翻译为首次有意义的绘制，是页面主要内容出现在屏幕上的时间, 这是用户感知加载体验的主要指标。
+目前尚无标准化的定义, 因为很难以通用的方式去确定各种类型页面的关键内容。
+
+**统计逻辑**
+```js
+new PerformanceObserver((entryList, observer) => {
+  entryList.getEntries()[0];
+
+  observer.disconnect();
+}).observe({entryTypes: ['element']})
+```
+
+### FPS
+FPS，全称 Frames Per Second，翻译为每秒帧率，表示的是每秒钟画面更新次数，当今大多数设备的屏幕刷新率都是60次/秒。
+
+**统计逻辑**
+```js
+var lastTime = performance.now();
+var frame = 0;
+var lastFameTime = performance.now();
+var loop = function(time) {
+    var now =  performance.now();
+    var fs = (now - lastFameTime);
+    lastFameTime = now;
+    var fps = Math.round(1000/fs);
+    frame++;
+    if (now > 1000 + lastTime) {
+        var fps = Math.round( ( frame * 1000 ) / ( now - lastTime ) );
+        frame = 0;    
+        lastTime = now;    
+    };           
+    window.requestAnimationFrame(loop);   
+}
+```
+
+### LCP
+Largest Contentful Paint，翻译为最大内容渲染，在viewport中最大的页面元素加载的时间。
+
+**统计逻辑**
+```js
+new PerformanceObserver((entryList, observer) => {
+  const entries = entryList.getEntries();
+  console.log(entries[entries.length-1]);
+
+  observer.disconnect();
+}).observe({entryTypes: ['largest-contentful-paint']})
+```
+
+### TTFB
+time to first byte，翻译为首字节时间，是指从请求到数据返回第一个字节所消耗的时间。
+
+**统计逻辑**
+```js
+function getTTFB() {
+  const {
+    requestStart,
+    responseStart
+  } = performance.timing;
+
+  return responseStart - requestStart;
 }
 ```
 
@@ -290,38 +366,6 @@ function getTTITime(startTime,longTaskEntries, resourceEntries,domContentLoadedT
     return Math.max(tti, domContentLoadedTime);
   }
   return Math.max(tti, domContentLoadedTime);
-}
-```
-
-### FCI
-FCI，全称 First CPU Idle，翻译为首次CPU空闲时间代表着一个网页已经满足了最小程度的与用户发生交互行为的时刻。
-当我们打开一个网页，我们并不需要等到一个网页完全加载好了，每一个元素都已经完成了渲染，然后再去与网页进行交互行为。
-网页满足了我们基本的交互的时间点是衡量网页性能的一个重要指标。
-
-**统计逻辑**
-FCI为在FMP之后，首次在一定窗口时间内没有长任务发生的那一时刻，并且如果这个时间点早于`DOMContentLoaded`时间，
-那么FCI的时间为`DOMContentLoaded`时间，窗口时间的计算函数可以根据`Lighthouse`提供的计算公式 `N = f(t) = 4 * e^(-0.045 * t) + 1` 进行自定义设计
-
-### FPS
-FPS，全称 Frames Per Second，翻译为每秒帧率，表示的是每秒钟画面更新次数，当今大多数设备的屏幕刷新率都是60次/秒。
-
-**统计逻辑**
-```js
-var lastTime = performance.now();
-var frame = 0;
-var lastFameTime = performance.now();
-var loop = function(time) {
-    var now =  performance.now();
-    var fs = (now - lastFameTime);
-    lastFameTime = now;
-    var fps = Math.round(1000/fs);
-    frame++;
-    if (now > 1000 + lastTime) {
-        var fps = Math.round( ( frame * 1000 ) / ( now - lastTime ) );
-        frame = 0;    
-        lastTime = now;    
-    };           
-    window.requestAnimationFrame(loop);   
 }
 ```
 
