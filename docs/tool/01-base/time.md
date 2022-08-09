@@ -123,3 +123,15 @@ export function isToday(str){
     }
 }
 ```
+
+## getFirstDayOfWeek
+```ts
+// 获取某天所在的周的第一天
+export function getFirstDayOfWeek(moment: dayjs.Dayjs | number, weekStart = 1): dayjs.Dayjs {
+  let firstDayOfWeek: dayjs.Dayjs = toZeroTimeOfDate(moment);
+  if (firstDayOfWeek.day() < weekStart) {
+    firstDayOfWeek = firstDayOfWeek.subtract(1, 'week');
+  }
+  return firstDayOfWeek.day(weekStart);
+}
+```
