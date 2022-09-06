@@ -45,3 +45,35 @@ function unique(arr) {
     })
 }
 ```
+
+## 参数数组转成json字符串
+```typescript
+function (params = Array<{ param: string, value: string }>) {
+  if (!Array.isArray(params) || !params.length) {
+    return '{}';
+  }
+
+  const paramsStr = params
+    .filter(item => item.param && item.value)
+    .reduce((str, item, index, arr) => {
+      let isJSON = false;
+
+      try {
+        JSON.parse(item.value);
+        isJSON = true;
+      // eslint-disable-next-line no-empty
+      } catch (e) {}
+
+      const value = isJSON ? item.value : `"${item.value}"`;
+      str += `"${item.param}":${value}`;
+      if (index === arr.length - 1) {
+        str += '}';
+      } else {
+        str += ',';
+      }
+      return str;
+    }, '{');
+
+  return paramsStr;
+}
+```
