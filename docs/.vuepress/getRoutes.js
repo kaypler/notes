@@ -60,7 +60,9 @@ function getDocs(root) {
 function getRoutes(root) {
   const docs = getDocs(root);
   const routes = docs.reduce((obj, doc) => {
-    obj[`/${doc}/`] = generateRoutes(join(root, doc), options[doc].groups);
+    if (options[doc]) {
+      obj[`/${doc}/`] = generateRoutes(join(root, doc), options[doc].groups);
+    }
     return obj;
   }, Object.create(null));
   return routes;
