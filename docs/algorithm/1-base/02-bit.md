@@ -81,3 +81,18 @@ function getSum(a, b) {
     return a;
 }
 ```
+
+## 计算位数
+求二进制中1的个数
+
+```js
+// 每次去掉一个 1，执行几次就有几个 1 ，每次把二进制数的最右边的 1去掉，直到为零停止
+function bitCount(n) {
+    let count = 0;
+    while(n) {
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
+}
+```
