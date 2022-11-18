@@ -47,6 +47,51 @@ var merge = function(nums1, m, nums2, n) {
 };
 ```
 
+## 907.
+`中等` 给定一个整数数组 arr，找到 min(b) 的总和，其中 b 的范围为 arr 的每个（连续）子数组。
+由于答案可能很大，因此 返回答案模 `10^9 + 7`
+[详细](https://leetcode.cn/problems/sum-of-subarray-minimums/)
+
+```java
+// 单调栈
+class Solution {
+    private static final int MOD = 1000000007;
+
+    // 重写根据下标取值方法，-1和n返回MIN_VALUE
+    private int getElement(int[] arr, int n, int i) {
+        if (i == -1 || i == n) {
+            return Integer.MIN_VALUE;
+        }
+        return arr[i];
+    }
+    
+    public int sumSubarrayMins(int[] arr) {
+        // 处理边界情况
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int n = arr.length;
+        long ans = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        // 将下标-1和n作为两个哨兵元素，它们对应的元素为MIN_VALUE
+        // -1作为最左边界，n作为最右边界
+        for (int i = -1; i <= n; i++) {
+            // 向左寻找第一个小于等于A[i]的元素
+            while (!stack.isEmpty() && getElement(arr, n, stack.peek()) > getElement(arr, n, i)) {
+                // A[cur]就是之前思路中的A[i]，注意区分和上面代码的区别
+                // 对于每个出栈元素来说，i就是它们的右边界，而栈顶元素就是左边界
+                int cur = stack.pop();
+                // 计算贡献值
+                ans = (ans + (long)(cur - stack.peek()) * (i - cur) * arr[cur]) % MOD;
+            }
+            stack.push(i);
+        }
+
+        return (int)ans;
+    }
+}
+```
+
 ## 1109. 航班预订统计
 `中等`这里有 n 个航班，它们分别从 1 到 n 进行编号。
 有一份航班预订表 bookings ，表中第 i 条预订记录 bookings[i] = [firsti, lasti, seatsi] 意味着在从 firsti 到 lasti （包含 firsti 和 lasti ）的 每个航班 上预订了 seatsi 个座位。
