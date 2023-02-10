@@ -112,19 +112,39 @@ maxAsyncRequests和maxInitialRequests有相似之处，它俩都是用来限制�
 Sourcemap 本质上是一个信息文件，里面储存着代码转换前后的对应位置信息。 
 Sourcemap 解决了在打包过程中，代码经过压缩，去空格以及 babel 编译转化后，由于代码之间差异性过大，造成无法debug的问题.
 
+sourcemap 的格式如下：
+```json
+{
+    version : 3,
+    file: "out.js",
+    sourceRoot : "",
+    sources: ["foo.js", "bar.js"],
+    names: ["a", "b"],
+    mappings: "AAgBC,SAAQ,CAAEA;AAAEA",
+    sourcesContent: ['const a = 1; console.log(a)', 'const b = 2; console.log(b)']
+}
+```
+
+version 是版本号，file 是文件名，sourceRoot 是源码根目录，names 是转换前的变量名，sources 是源码文件，sourcesContent 是每个 sources 对应的源码的内容，mappings 就是一个个位置映射了。
+mappings 部分是通过分号; 和逗号 , 分隔的。一个分号就代表一行，这样就免去了行的映射，然后每一行可能有多个位置的映射，用 , 分隔。每个位置一共五位，采用的编码方式是**VLQ编码**。
+
+webpack 的 sourcemap 配置规则是 `^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$`。
+
 webpack中的sourcemap的基本类型包括：
-1. **eval**: 将每一个module模块，执行eval，执行后不会生成sourcemap文件，仅仅是在每一个模块后，增加sourceURL来关联模块处理前后的对应关系
-2. **soure-map**: 为每一个打包后的模块生成独立的soucemap文件
-3. **inline**: 与source-map不同，增加inline属性后，不会生成独立的.map文件，而是将.map文件以dataURL的形式插入
-4. **cheap**: cheap属性在打包后同样会为每一个模块生成.map文件，但是与source-map的区别在于cheap生成的.map文件会忽略原始代码中的列信息
-5. **module**: 含了loader模块之间的sourcemap
+1. **inline**: 与 source-map 不同，增加 inline 属性后，不会生成独立的 .map 文件，而是将 .map 文件以 dataURL 的形式插入;
+2. **hidden**: 不在打包后的代码里关联 sourceMappingURL，生产环境一般不关联 sourceMappingURL;
+3. **eval**: 将每一个 module 模块，执行eval，执行后不会生成 sourcemap 文件，仅仅是在每一个模块后，增加 sourceURL 来关联模块处理前后的对应关系;
+4. **nosources**: sourcemap 里是有 sourceContent 部分的，也就是直接把源码贴在这里，这样的好处是根据文件路径查不到文件也可以映射，但这样会增加 sourcemap 的体积，使用 nosources 配置不生成 sourceContent部分；
+5. **cheap**: sourcemap 慢主要是处理映射比较慢，很多情况下我们不需要映射到源码的行和列，只要精确到行就行，这时候就可以用 cheap;
+6. **module**: webpack 中对一个模块会进行多次处理，比如经过 loader A 做一次转换，再用 laoder B 做一次转换，之后打包到一起，每次转换都会生成 sourcemap，那也就是有多个 sourcemap。默认 sourcemap 只是能从 bundle 关联到模块的代码，也就是只关联了最后那个 sourcemap。 使用 module 配置可以把每一次的 loader 的 sourcemap 也关联起来，不过需要配合 source-map-loader 使用;
+7. **soure-map**: 为每一个打包后的模块生成 sourcemap;
 
 **总结：**
-- 在开发环境中我们使用：`cheap-module-eval-source-map`
-- 在生产环境中我们使用：`cheap-module-source-map`
+- 在开发环境中我们使用：`eval-cheap-module-source-map`
+- 在生产环境中我们使用：`hidden-cheap-module-source-map`
 
-`eval-source-map`组合使用是指将.map以DataURL的形式引入到打包好的模块中，类似于inline属性的效果，我们在生产中，使用`eval-source-map`会使打包后的文件太大，
-因此在生产环境中不会使用``eval-source-map`。但是因为eval的rebuild速度快，因此我们可以在本地环境中增加eval属性。
+`eval-source-map` 组合使用是指将.map以DataURL的形式引入到打包好的模块中，类似于inline属性的效果，我们在生产中，使用 `eval-source-map` 会使打包后的文件太大，
+因此在生产环境中不会使用 `eval-source-map`。但是因为eval的rebuild速度快，因此我们可以在本地环境中增加 eval 属性。
 
  
 
