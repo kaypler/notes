@@ -146,6 +146,41 @@ webpack中的sourcemap的基本类型包括：
 `eval-source-map` 组合使用是指将.map以DataURL的形式引入到打包好的模块中，类似于inline属性的效果，我们在生产中，使用 `eval-source-map` 会使打包后的文件太大，
 因此在生产环境中不会使用 `eval-source-map`。但是因为eval的rebuild速度快，因此我们可以在本地环境中增加 eval 属性。
 
+查找 sourcemap [示例](https://github.com/joeyguo/noerror)：
+```js
+var sourceMap = require('source-map');
+
+function lookupSourceMap(mapFile, line, column, callback) {
+    fs.readFile(mapFile, function(err, data) {
+        if(err) {
+            console.error(err);
+            return;
+        }
+
+        var fileContent = data.toString(),
+            fileObj = JSON.parse(fileContent),
+            sources = fileObj.sources;
+
+        sources.map(item => {
+            sourcesPathMap[fixPath(item)] = item;
+        });
+
+        var consumer = new sourceMap.SourceMapConsumer(fileContent);
+        var lookup = {
+            line: parseInt(line),
+            column: parseInt(column)
+        };
+        var result = consumer.originalPositionFor(lookup);
+
+        var originSource = sourcesPathMap[result.source],
+            sourcesContent = fileObj.sourcesContent[sources.indexOf(originSource)];
+
+        result.sourcesContent = sourcesContent;
+
+        callback && callback(result);
+    });
+}
+```
  
 
 ## 提升webpack打包速度
