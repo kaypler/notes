@@ -176,8 +176,16 @@ Update notifications for your CLI app <br>
 Yargs helps you build interactive command line tools, by parsing arguments and generating an elegant user interface. <br>
 [github](https://github.com/yargs/yargs)
 
-## Mobile
+## Monitor
 
 ### Matrix
 Matrix is a plugin style, non-invasive APM system developed by WeChat.<br>
 [github](https://github.com/Tencent/matrix)
+
+### Sentry
+Developer-first error tracking and performance monitoring
+[github](https://github.com/getsentry/sentry)
+
+### Wedjat
+iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理
+[github](https://github.com/aozhimin/iOS-Monitor-Platform)
