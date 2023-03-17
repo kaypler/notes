@@ -45,9 +45,17 @@ Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whi
 📦 A modern JavaScript utility library delivering modularity, performance, & extras.<br>
 [github](https://github.com/lodash/lodash)  [在线文档](lodash.com/)
 
+### Sharp
+High performance Node.js image processing, the fastest module to resize JPEG, PNG, WebP, AVIF and TIFF images. Uses the libvips library.
+[github](https://github.com/lovell/sharp)
+
 ### shiki
 A beautiful Syntax Highlighter. <br>
 [github](https://github.com/shikijs/shiki)  [在线文档](https://shiki.matsu.io/)
+
+### tesseract.js
+Pure Javascript OCR for more than 100 Languages 📖🎉🖥
+[github](https://github.com/naptha/tesseract.js)
 
 ## Markdown
 
