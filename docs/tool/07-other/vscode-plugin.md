@@ -1,4 +1,4 @@
-# Vscode插件
+# Vscode 插件
 
 - **Atom One Dark Theme**：一款好看的主题插件，推荐搭配字体Hack
 - **Auto Close Tag**：自动闭合标签
