@@ -45,6 +45,10 @@ Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whi
 📦 A modern JavaScript utility library delivering modularity, performance, & extras.<br>
 [github](https://github.com/lodash/lodash)  [在线文档](lodash.com/)
 
+### rrweb
+record and replay the web
+[github](https://github.com/rrweb-io/rrweb)  [在线文档](https://www.rrweb.io/)
+
 ### Sharp
 High performance Node.js image processing, the fastest module to resize JPEG, PNG, WebP, AVIF and TIFF images. Uses the libvips library.
 [github](https://github.com/lovell/sharp)
