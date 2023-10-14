@@ -8,6 +8,7 @@
 - **Firebase**: Tools from Google for building app infrastructure, improving app quality, and growing your business. [go](https://console.firebase.google.com)
 - **Glyphs**: Special Characters [go](https://css-tricks.com/snippets/html/glyphs/)
 - **Go Playground**: The go playground. [go](https://go.dev/play/)
+- **Html2pug**: HTML snippet to a Pug snippet converter. [go](https://html2pug.vercel.app/)
 - **Json.cn**: JSON parse online. [go](https://www.json.cn/)
 - **JWT.io**: jwt token resolve tool. [go](https://jwt.io/)
 - **Lorem Ipsum**: Lorem Ipsum for text. [go](https://loremipsum.io/)
