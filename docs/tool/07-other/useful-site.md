@@ -16,6 +16,7 @@
 - **Maildrop**: Free Disposable Email Address. [go](https://maildrop.cc/)
 - **Mailsac**: Fast Disposable Email and APIs for Software Testing. [go](https://mailsac.com/)
 - **RegExr**: RegExr is an online tool to learn, build, & test Regular Expressions. [go](https://regexr.com/)
+- **Stripe**: Payment Processing Platform for the Internet. [go](https://stripe.com)
 - **Sizzy**: The browser for web developers. [go](https://sizzy.co/)
 
 ## 创作工具
