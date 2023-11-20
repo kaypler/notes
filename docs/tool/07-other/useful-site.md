@@ -46,6 +46,18 @@
 - **Multiavatar**: Generate a random avatar. [go](https://multiavatar.com/) 
 - **Sketchfab**: The leading platform for 3D & AR on the web [go](https://sketchfab.com/)
 
+## AI
+- **AITDK**: 最佳AI标题、描述和关键词生成器。[go](https://aitdk.com/zh-CN/)
+- **AwesomeGPTs**: Discover the best GPTs Everyday. [go](https://awesomegpts.pro/)
+- **BestGPTs**: 发现最佳GPT和定制版ChatGPT。[go](https://bestgpts.app/zh-CN/)
+- **ChatGot**: Chat Freely, Got Every AI Assistants Here for You. [go](https://start.chatgot.io/login)
+- **EmojiGen**: An Open Source Emoji Generator. [go](https://emoji.fly.dev/)
+- **GPTsStore**: Find out the useful GPTs by OPENAI. [go](https://gpts-store.net/)
+- **GPTsToday**: GPTs Today - Discover Interesting GPTs. [go](https://gptstoday.com/)
+- **GPTsWorks**: Third-party GPTs store. [go](https://gpts.works/)
+- **ScreenshottoCode**：Drag & drop a screenshot to get started. [go](https://picoapps.xyz/free-tools/screenshot-to-code)
+- **ShortbreadAI:**: Create Comics with AI in Minutes.[go](https://shortbread.ai/)
+
 ## 充电
 - **CSS-Tricks**: Tips, Tricks, and Techniques on using Cascading Style Sheets. [go](https://css-tricks.com/)
 
