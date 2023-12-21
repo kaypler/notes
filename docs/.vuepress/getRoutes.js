@@ -22,6 +22,7 @@ const options = {
     groups: [
       { title: 'react', path: 'react' },
       { title: 'vscode', path: 'vscode' },
+      { title: 'dev', path: 'dev' },
     ]
   },
   'interview': {
