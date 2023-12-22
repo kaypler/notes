@@ -52,9 +52,12 @@
 - **BestGPTs**: 发现最佳GPT和定制版ChatGPT。[go](https://bestgpts.app/zh-CN/)
 - **ChatGot**: Chat Freely, Got Every AI Assistants Here for You. [go](https://start.chatgot.io/login)
 - **EmojiGen**: An Open Source Emoji Generator. [go](https://emoji.fly.dev/)
+- **GeminiProChat**: Based on Gemini Pro API. [go](https://geminiprochat.com/)
+- **GoogleGemini**: a largest and most capable AI model. [go](https://googlegemini.co/)
 - **GPTsStore**: Find out the useful GPTs by OPENAI. [go](https://gpts-store.net/)
 - **GPTsToday**: GPTs Today - Discover Interesting GPTs. [go](https://gptstoday.com/)
 - **GPTsWorks**: Third-party GPTs store. [go](https://gpts.works/)
+- **LLMVisualization**: A 3D animated visualization of an LLM with a walkthrough. [go](https://bbycroft.net/llm)
 - **ScreenshottoCode**：Drag & drop a screenshot to get started. [go](https://picoapps.xyz/free-tools/screenshot-to-code)
 - **ShortbreadAI:**: Create Comics with AI in Minutes.[go](https://shortbread.ai/)
 
