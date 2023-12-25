@@ -20,9 +20,10 @@ const options = {
   'article': {
     title: '文章',
     groups: [
-      { title: 'react', path: 'react' },
-      { title: 'vscode', path: 'vscode' },
       { title: 'dev', path: 'dev' },
+      { title: 'vscode', path: 'vscode' },
+      { title: 'react', path: 'react' },
+      { title: 'ai', path: 'ai' },
     ]
   },
   'interview': {
