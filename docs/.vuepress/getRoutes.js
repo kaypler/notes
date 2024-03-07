@@ -44,7 +44,8 @@ const options = {
       { title: 'Hook', path: '04-hook' },
       { title: '文件', path: '05-file' },
       { title: '进阶', path: '06-advanced' },
-      { title: '其它', path: '07-other' },
+      { title: '开源库', path: '07-source' },
+      { title: '其它', path: '08-other' },
     ]
   }
 }
