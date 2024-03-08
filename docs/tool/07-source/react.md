@@ -10,6 +10,11 @@ Drag and Drop for React. <br>
 React draggable component. <br>
 [github](https://github.com/react-grid-layout/react-draggable)
 
+### react-sortable-hoc
+A set of higher-order components to turn any list into an animated, accessible and touch-friendly sortable list. <br>
+[github](https://github.com/clauderic/react-sortable-hoc)
+
+
 ## 状态管理
 
 ### mobx
