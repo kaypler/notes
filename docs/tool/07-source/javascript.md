@@ -29,6 +29,10 @@ JavaScript syntax highlighter with language auto-detection and zero dependencies
 The fast & forgiving HTML and XML parser <br>
 [github](https://github.com/fb55/htmlparser2)  [在线文档](https://feedic.com/htmlparser2/)
 
+### htmx
+</> htmx - high power tools for HTML <br>
+[github](https://github.com/bigskysoftware/htmx)  [在线文档](https://htmx.org/)
+
 ### js-xss
 Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist <br>
 [github](https://github.com/leizongmin/js-xss)  [在线文档](https://jsxss.com/zh/index.html)
@@ -36,6 +40,10 @@ Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whi
 ### lodash
 📦 A modern JavaScript utility library delivering modularity, performance, & extras.<br>
 [github](https://github.com/lodash/lodash)  [在线文档](lodash.com/)
+
+### nanostores
+A tiny (286 bytes) state manager for React/RN/Preact/Vue/Svelte with many atomic tree-shakable stores. <br>
+[github](https://github.com/nanostores/nanostores)
 
 ### rrweb
 record and replay the web

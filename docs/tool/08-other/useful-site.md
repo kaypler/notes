@@ -3,6 +3,7 @@
 ## 开发工具
 - **AST Explorer**: AST explorer. [go](https://astexplorer.net/)
 - **CSS clip-path Maker**: CSS clip-path maker. [go](https://bennettfeely.com/clippy/)
+- **CodeSandbox**: CodeSandbox is an online editor tailored for web applications.[go](https://codesandbox.io/)
 - **Cubic Bezier**: Cubic Bezier tool. [go](https://cubic-bezier.com/)
 - **Easings**: This page helps you choose the right easing function. [go](https://easings.net/)
 - **Firebase**: Tools from Google for building app infrastructure, improving app quality, and growing your business. [go](https://console.firebase.google.com)
@@ -60,6 +61,10 @@
 - **LLMVisualization**: A 3D animated visualization of an LLM with a walkthrough. [go](https://bbycroft.net/llm)
 - **ScreenshottoCode**：Drag & drop a screenshot to get started. [go](https://picoapps.xyz/free-tools/screenshot-to-code)
 - **ShortbreadAI:**: Create Comics with AI in Minutes.[go](https://shortbread.ai/)
+
+## 博客
+- **Frontend at Scale**: Level up your frontend architecture skills. [go](https://frontendatscale.com/#archive)
+- **Jake Lazaroff**: Just a programmer trying to make a home for myself on the WWW.[go](https://jakelazaroff.com/blog/)
 
 ## 充电
 - **CSS-Tricks**: Tips, Tricks, and Techniques on using Cascading Style Sheets. [go](https://css-tricks.com/)
