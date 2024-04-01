@@ -6,3 +6,6 @@
 ## 技术视野
 - [Web Components Eliminate JavaScript Framework Lock-in](https://jakelazaroff.com/words/web-components-eliminate-javascript-framework-lock-in/)
 
+## React
+- [How to Write a Google Maps React Component](https://www.newline.co/fullstack-react/articles/how-to-write-a-google-maps-react-component/)
+
