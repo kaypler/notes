@@ -61,6 +61,10 @@ A beautiful Syntax Highlighter. <br>
 Pure Javascript OCR for more than 100 Languages 📖🎉🖥
 [github](https://github.com/naptha/tesseract.js)
 
+### Turfjs
+A modular geospatial engine written in JavaScript and TypeScript. <br>
+[github](https://github.com/Turfjs/turf/)
+
 
 ## Icon 
 
@@ -93,6 +97,10 @@ Matrix is a plugin style, non-invasive APM system developed by WeChat.<br>
 ### Sentry
 Developer-first error tracking and performance monitoring
 [github](https://github.com/getsentry/sentry)
+
+### stats.js
+JavaScript Performance Monitor. <br>
+[github](https://github.com/mrdoob/stats.js)
 
 ### Wedjat
 iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理
