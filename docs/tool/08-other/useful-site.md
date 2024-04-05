@@ -64,6 +64,7 @@
 
 ## 博客
 - **Frontend at Scale**: Level up your frontend architecture skills. [go](https://frontendatscale.com/#archive)
+- **Go Make Things**: Get Daily Developer Tips. [go](https://gomakethings.com/articles/)
 - **Jake Lazaroff**: Just a programmer trying to make a home for myself on the WWW.[go](https://jakelazaroff.com/blog/)
 
 ## 充电
