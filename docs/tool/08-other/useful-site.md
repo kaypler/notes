@@ -63,6 +63,7 @@
 - **ShortbreadAI:**: Create Comics with AI in Minutes.[go](https://shortbread.ai/)
 
 ## 博客
+- **Ahmad Shadeed**: An independent designer passionate about bridging design and code in an easy and understandable manner.[go](https://ishadeed.com/articles/)
 - **Frontend at Scale**: Level up your frontend architecture skills. [go](https://frontendatscale.com/#archive)
 - **Go Make Things**: Get Daily Developer Tips. [go](https://gomakethings.com/articles/)
 - **Jake Lazaroff**: Just a programmer trying to make a home for myself on the WWW.[go](https://jakelazaroff.com/blog/)
