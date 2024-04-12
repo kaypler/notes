@@ -83,6 +83,9 @@ Fully customisable & accessible vector icons <br>
 A JavaScript library to position floating elements and create interactions for them.<br>
 [github](https://github.com/floating-ui/floating-ui)
 
+### GSAP
+GSAP (GreenSock Animation Platform), a JavaScript animation library for the modern web. <br>
+[github](https://github.com/greensock/GSAP)
 
 ## 可视化
 

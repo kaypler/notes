@@ -70,6 +70,7 @@
 
 ## 充电
 - **CSS-Tricks**: Tips, Tricks, and Techniques on using Cascading Style Sheets. [go](https://css-tricks.com/)
+- **WEB.DEV**: Building a better web, together. [go](https://web.dev/)
 
 ## 有意思的网站
 - **XSS Game**: In this training program, you will learn to find and exploit XSS bugs. [go](https://xss-game.appspot.com/)
