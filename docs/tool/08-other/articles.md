@@ -7,6 +7,7 @@
 - [A Deep Dive Into CSS Grid minmax()](https://ishadeed.com/article/css-grid-minmax/)
 
 ## 技术选型
+- [How I Built My Blog](https://www.joshwcomeau.com/blog/how-i-built-my-blog/)
 - [Why I chose Tauri instead of Electron](https://aptabase.com/blog/why-chose-to-build-on-tauri-instead-electron)
 
 ## 技术视野

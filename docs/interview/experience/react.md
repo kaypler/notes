@@ -1,5 +1,19 @@
 # React
 
+## re-render 机制
+React 中的每次重新渲染都以状态更改开始，当组件重新渲染时，它会重新渲染其所有后代组件，无论其后代组件的 props 是否改变，但是不会重新渲染其祖先组件。这里有种意外情况，通过 props.children 传递进来的 children 也不会被重新渲染，同样，将组件作为 props 传递进来，props 不受 state 变化的影响，因此传递进来的组件也不会被重新渲染。
+
+如果希望后代组件只在 props 改变的情况下重新渲染，可以使用 React.memo 包裹后代组件。
+
+Context 改变会重新渲染所有消费 context 的组件及其后代组件，如果不希望后代组件被重新渲染，可以使用 React.memo 包裹后代组件。
+
+使用 React.memo 包裹的组件只会在传入的 props 改变、内部状态改变或者消费的 context 改变才会重新渲染。
+
+**参考：**
+- [Why React Re-Renders](https://www.joshwcomeau.com/react/why-react-re-renders)
+- [Before You memo()](https://overreacted.io/before-you-memo/)
+- [React re-renders guide: everything, all at once](https://www.developerway.com/posts/react-re-renders-guide)
+
 ## shallowEqual的流程
 - 第一步，直接通过 === 判断是否相等，如果相等，那么返回true。正常情况只要调用 React.createElement 会重新创建props，props都是不相等的。
 - 第二步，如果新老props有一个不为对象，或者不存在，那么直接返回false。

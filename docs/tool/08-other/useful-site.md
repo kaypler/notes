@@ -48,6 +48,7 @@
 - **Sketchfab**: The leading platform for 3D & AR on the web [go](https://sketchfab.com/)
 
 ## AI
+- **ARTIVERSEHUB**: Free art prompt for Multiple Platforms. Update the prompts Daily. [go](https://artiversehub.ai/prompt-marketplace)
 - **AITDK**: 最佳AI标题、描述和关键词生成器。[go](https://aitdk.com/zh-CN/)
 - **AwesomeGPTs**: Discover the best GPTs Everyday. [go](https://awesomegpts.pro/)
 - **BestGPTs**: 发现最佳GPT和定制版ChatGPT。[go](https://bestgpts.app/zh-CN/)
@@ -67,9 +68,13 @@
 - **Frontend at Scale**: Level up your frontend architecture skills. [go](https://frontendatscale.com/#archive)
 - **Go Make Things**: Get Daily Developer Tips. [go](https://gomakethings.com/articles/)
 - **Jake Lazaroff**: Just a programmer trying to make a home for myself on the WWW.[go](https://jakelazaroff.com/blog/)
+- **Josh Collinsworth**: Josh Collinsworth | Blog. [go](https://joshcollinsworth.com/blog)
+- **Josh WComeau**: Friendly tutorials for developers. Focus on React, CSS, Animation, and more! [go](https://www.joshwcomeau.com/latest/)
+- **Overreacted**: A blog by Dan Abramov. [go](https://overreacted.io/)
 
 ## 充电
 - **CSS-Tricks**: Tips, Tricks, and Techniques on using Cascading Style Sheets. [go](https://css-tricks.com/)
+- **Developer Way**: Advanced patterns for Frontend developers. [go](https://www.developerway.com/)
 - **WEB.DEV**: Building a better web, together. [go](https://web.dev/)
 
 ## 有意思的网站
