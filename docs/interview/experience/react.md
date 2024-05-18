@@ -109,6 +109,24 @@ document.getElementById('root').addEventListener('click', (event) => dispatchEve
 document.getElementById('root').addEventListener('click', (event) => dispatchEvent(event, false));
 ```
 
+## React.lazy 实现原理
+```js
+function lazy(fn){
+    return class extends React.Component{
+        state = {Component:null};
+        componentDidMount(){
+            fn().then(result=>{
+                this.setState({Component:result.default});
+            });
+        }
+        render(){
+            let {Component} =this.state;
+            return Component?<Component/>:null;
+        }
+    }
+}
+```
+
 ## Redux 的基本原则
 - **唯一数据源**：应用的数据状态应该只存储在唯一的一个 Store 上；
 - **保持状态只读**：不能直接修改 Store，必须通过派发一个 action 对象完成；
