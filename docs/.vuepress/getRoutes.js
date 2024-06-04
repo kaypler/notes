@@ -23,6 +23,7 @@ const options = {
       { title: 'dev', path: 'dev' },
       { title: 'vscode', path: 'vscode' },
       { title: 'react', path: 'react' },
+      { title: 'web', path: 'web' },
       { title: 'ai', path: 'ai' },
     ]
   },
