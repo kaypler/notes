@@ -1,6 +1,9 @@
 # Typescript 配置
 
+- **references**: references are a way to structure your TypeScript programs into smaller pieces.
+
 ## compilerOptions
+- **baseUrl**: Base directory to resolve non-relative module names.
 - **declaration**: This will generate declaration files (`.d.ts`) alongside our `.js` files. With that alone, your package will be usable in TypeScript projects from the get-go and provide type hints even in JavaScript projects.
 - **declarationMap**: With this, sourcemap (`.d.ts.map`) will be generated to map our declaration files (`.d.ts`) to our original TypeScript source code (`.ts`). This means that code editors can go to the original TypeScript code when using "Go to definition," instead of the compiled JavaScript files.
 - **esModuleInterop**: Default is `true`, allows import and export using ES module syntax, otherwise is commonjs style.
