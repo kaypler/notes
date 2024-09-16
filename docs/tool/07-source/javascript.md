@@ -45,6 +45,10 @@ Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whi
 A tiny (286 bytes) state manager for React/RN/Preact/Vue/Svelte with many atomic tree-shakable stores. <br>
 [github](https://github.com/nanostores/nanostores)
 
+### number-precision
+🚀1K tiny & fast lib for doing addition, subtraction, multiplication and division operations precisely. <br>
+[github](https://github.com/nefe/number-precision)
+
 ### reef
 A lightweight library for creating reactive, state-based components and UI.<br>
 [github](https://github.com/cferdinandi/reef)
