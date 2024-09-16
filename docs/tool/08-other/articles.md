@@ -5,6 +5,7 @@
 
 ## CSS
 - [A Deep Dive Into CSS Grid minmax()](https://ishadeed.com/article/css-grid-minmax/)
+- [Making SVG Loading Spinners: An Interactive Guide](https://www.fffuel.co/svg-spinner/)
 
 ## 技术选型
 - [How I Built My Blog](https://www.joshwcomeau.com/blog/how-i-built-my-blog/)
