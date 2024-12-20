@@ -91,6 +91,11 @@ A JavaScript library to position floating elements and create interactions for t
 GSAP (GreenSock Animation Platform), a JavaScript animation library for the modern web. <br>
 [github](https://github.com/greensock/GSAP)
 
+### Tiptap
+The headless rich text editor framework for web artisans. <br>
+[github](https://github.com/ueberdosis/tiptap)
+
+
 ## 可视化
 
 ### chart.xkcd

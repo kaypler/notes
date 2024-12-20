@@ -9,10 +9,12 @@
 
 ## 技术选型
 - [How I Built My Blog](https://www.joshwcomeau.com/blog/how-i-built-my-blog/)
+- [On Typesetting Engines: A Programmer's Perspective](https://blog.ppresume.com/posts/on-typesetting-engines)
 - [Why I chose Tauri instead of Electron](https://aptabase.com/blog/why-chose-to-build-on-tauri-instead-electron)
 
 ## 技术视野
 - [Web Components Eliminate JavaScript Framework Lock-in](https://jakelazaroff.com/words/web-components-eliminate-javascript-framework-lock-in/)
+- [Sweet Suspense](https://plainvanillaweb.com/blog/articles/2024-09-09-sweet-suspense/)
 
 ## React
 - [How to Write a Google Maps React Component](https://www.newline.co/fullstack-react/articles/how-to-write-a-google-maps-react-component/)
