@@ -83,6 +83,10 @@ Fully customisable & accessible vector icons <br>
 
 ## 交互
 
+### Anime
+JavaScript animation engine. <br>
+[github](https://github.com/juliangarnier/anime/)
+
 ### floating-ui
 A JavaScript library to position floating elements and create interactions for them.<br>
 [github](https://github.com/floating-ui/floating-ui)
@@ -94,6 +98,10 @@ GSAP (GreenSock Animation Platform), a JavaScript animation library for the mode
 ### Tiptap
 The headless rich text editor framework for web artisans. <br>
 [github](https://github.com/ueberdosis/tiptap)
+
+### Typed.js
+A JavaScript Typing Animation Library. <br>
+[github](https://github.com/mattboldt/typed.js/)
 
 
 ## 可视化
