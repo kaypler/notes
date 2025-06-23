@@ -5,6 +5,7 @@
 
 ## CSS
 - [A Deep Dive Into CSS Grid minmax()](https://ishadeed.com/article/css-grid-minmax/)
+- [CSS Classes considered harmful](https://www.keithcirkel.co.uk/css-classes-considered-harmful/)
 - [Making SVG Loading Spinners: An Interactive Guide](https://www.fffuel.co/svg-spinner/)
 
 ## 工程化
