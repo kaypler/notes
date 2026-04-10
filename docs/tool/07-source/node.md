@@ -46,6 +46,10 @@ A node module to get your node module started. <br>
 A collection of common interactive command line user interfaces. <br>
 [github](https://github.com/SBoudrias/Inquirer.js)
 
+### jiti
+Runtime TypeScript and ESM support for Node.js <br>
+[github](https://github.com/unjs/jiti)
+
 ### log-symbols
 Colored symbols for various log levels <br>
 [github](https://github.com/sindresorhus/log-symbols)
@@ -100,6 +104,10 @@ Update notifications for your CLI app <br>
 
 
 ## 机器学习
+
+### langchain
+The agent engineering platform <br>
+[github](https://github.com/langchain-ai/langchainjs)
 
 ### node-nlp
 An NLP library for building bots, with entity extraction, sentiment analysis, automatic language identify, and so more. <br>

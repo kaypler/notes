@@ -54,11 +54,11 @@ A lightweight library for creating reactive, state-based components and UI.<br>
 [github](https://github.com/cferdinandi/reef)
 
 ### rrweb
-record and replay the web
+record and replay the web <br>
 [github](https://github.com/rrweb-io/rrweb)  [在线文档](https://www.rrweb.io/)
 
 ### Sharp
-High performance Node.js image processing, the fastest module to resize JPEG, PNG, WebP, AVIF and TIFF images. Uses the libvips library.
+High performance Node.js image processing, the fastest module to resize JPEG, PNG, WebP, AVIF and TIFF images. Uses the libvips library. <br>
 [github](https://github.com/lovell/sharp)
 
 ### shiki
@@ -66,12 +66,16 @@ A beautiful Syntax Highlighter. <br>
 [github](https://github.com/shikijs/shiki)  [在线文档](https://shiki.matsu.io/)
 
 ### tesseract.js
-Pure Javascript OCR for more than 100 Languages 📖🎉🖥
+Pure Javascript OCR for more than 100 Languages 📖🎉🖥 <br>
 [github](https://github.com/naptha/tesseract.js)
 
 ### Turfjs
 A modular geospatial engine written in JavaScript and TypeScript. <br>
 [github](https://github.com/Turfjs/turf/)
+
+### zod
+TypeScript-first schema validation with static type inference <br>
+[github](https://github.com/colinhacks/zod)
 
 
 ## Icon 
@@ -126,7 +130,7 @@ Matrix is a plugin style, non-invasive APM system developed by WeChat.<br>
 [github](https://github.com/Tencent/matrix)
 
 ### Sentry
-Developer-first error tracking and performance monitoring
+Developer-first error tracking and performance monitoring <br>
 [github](https://github.com/getsentry/sentry)
 
 ### stats.js
@@ -134,7 +138,7 @@ JavaScript Performance Monitor. <br>
 [github](https://github.com/mrdoob/stats.js)
 
 ### Wedjat
-iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理
+iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理 <br>
 [github](https://github.com/aozhimin/iOS-Monitor-Platform)
 
 
@@ -143,6 +147,10 @@ iOS 性能监控 SDK —— Wedjat（华狄特）开发过程的调研和整理
 ### markdown-it
 Markdown parser, done right. 100% CommonMark support, extensions, syntax plugins & high speed <br>
 [github](https://github.com/markdown-it/markdown-it)  [在线文档](https://markdown-it.github.io/markdown-it/)
+
+### marked
+A markdown parser and compiler. Built for speed. <br>
+[github](https://github.com/markedjs/marked)
 
 ### stackedit
 In-browser Markdown editor <br>
