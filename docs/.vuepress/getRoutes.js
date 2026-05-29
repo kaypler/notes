@@ -25,6 +25,7 @@ const options = {
       { title: 'react', path: 'react' },
       { title: 'web', path: 'web' },
       { title: 'ai', path: 'ai' },
+      { title: 'trade', path: 'trade' },
     ]
   },
   'interview': {
