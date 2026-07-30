@@ -34,7 +34,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'   # 关键：自动缓存 pnpm 的全局存储，极大提速
 
       # 3. 安装依赖（--frozen-lockfile 相当于 npm ci，确保锁定版本）
