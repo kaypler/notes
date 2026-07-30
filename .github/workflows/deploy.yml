@@ -39,7 +39,7 @@ jobs:
 
       # 3. 安装依赖（--frozen-lockfile 相当于 npm ci，确保锁定版本）
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --allow-build-scripts
 
       # 4. 构建项目
       - name: Build project
