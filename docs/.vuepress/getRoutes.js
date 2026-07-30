@@ -20,12 +20,13 @@ const options = {
   'article': {
     title: '文章',
     groups: [
-      { title: 'dev', path: 'dev' },
-      { title: 'vscode', path: 'vscode' },
-      { title: 'react', path: 'react' },
-      { title: 'web', path: 'web' },
-      { title: 'ai', path: 'ai' },
-      { title: 'trade', path: 'trade' },
+      { title: 'AI', path: 'ai' },
+      { title: 'DEV', path: 'dev' },
+      { title: 'Hybrid', path: 'hybird' },
+      { title: 'VSCode', path: 'vscode' },
+      { title: 'React', path: 'react' },
+      { title: 'Web', path: 'web' },
+      { title: 'Trade', path: 'trade' },
     ]
   },
   'interview': {

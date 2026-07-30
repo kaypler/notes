@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]  # 当推送到 master 分支时触发
-  workflow_dispatch:     # 也支持从 Actions 标签页手动触发
+    branches: [ "master" ]  # 监听 master 分支
+  workflow_dispatch:     # 支持手动触发
 
 # 设置部署所需的权限
 permissions:
@@ -23,19 +23,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # 1. 安装 pnpm（自动读取 package.json 中的 "packageManager" 字段）
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest  # 或者指定具体版本，如 '9'
+
+      # 2. 安装 Node.js 并设置 pnpm 缓存
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'   # 关键：自动缓存 pnpm 的全局存储，极大提速
+
+      # 3. 安装依赖（--frozen-lockfile 相当于 npm ci，确保锁定版本）
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
+
+      # 4. 构建项目
       - name: Build project
-        run: npm run build
+        run: pnpm run build  # 这行会执行 package.json 中的 build 脚本
+
+      # 5. 上传构建产物（供 deploy 作业使用）
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist  # ⚠️ 关键：将此路径改为你的构建输出目录，如 public, build 等
+          path: ./docs/.vuepress/dist     # ⚠️ 关键：务必改成你项目实际的输出目录（如 public、build）
 
   deploy:
     environment:
