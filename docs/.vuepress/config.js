@@ -1,4 +1,6 @@
 const { navs, routes } = require('./getRoutes');
+const texmath = require('markdown-it-texmath');
+const katex = require('katex');
 
 module.exports = {
   title: 'Notes',
@@ -16,7 +18,16 @@ module.exports = {
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
+    extendMarkdown: md => {
+      md.use(texmath, {
+        engine: katex,
+        delimiters: 'dollars',
+        katexOptions: {
+          throwOnError: false
+        }
+      });
+    }
   },
   themeConfig: {
     repo: 'kaypler/notes',

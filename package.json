@@ -8,12 +8,15 @@
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
+    "test": "node --test test/markdown-math.test.js",
     "deploy": "sh build/deploy.sh"
   },
   "license": "MIT",
   "private": false,
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.8.2",
+    "katex": "^0.18.4",
+    "markdown-it-texmath": "^1.0.0",
     "vuepress": "^1.8.2"
   }
 }
