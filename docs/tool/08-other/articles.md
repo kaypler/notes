@@ -13,6 +13,7 @@
 - [AI Agent 是怎么"想一步做一步"的？拆解 ReAct 模式](https://mp.weixin.qq.com/s/b9jic-JRrMLxh-EhcoCJaA)
 - [Browser-Use 源码解析：AI 是怎么"看懂"并操控网页的](https://mp.weixin.qq.com/s/GbDuG02fQNO6MhSFsA4yKg)
 - [如何搭建一个端到端业务需求专家 Agent](https://mp.weixin.qq.com/s/9-KVLH2D5VYmyAzbI9nFmA)
+- [Super-agent 设计探索：迈向更自主的 Agent 系统](https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg)
 
 ## 安全
 - [Content Security Policy (CSP): What Every Web Developer Must Know](https://www.writesoftwarewell.com/content-security-policy/)
